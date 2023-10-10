@@ -1,0 +1,6 @@
+#ifndef SMARTCALC_V2_MVCMODEL_TOKEN_H_
+#define SMARTCALC_V2_MVCMODEL_TOKEN_H_
+
+struct Token {};
+
+#endif  // SMARTCALC_V2_MVCMODEL_TOKEN_H_
