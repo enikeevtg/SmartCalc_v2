@@ -21,13 +21,16 @@ class ExpressionParser {
   enum Address { kStack, kQueue };
 
   void TokenProcessing();
+  void ValueTokenProcessing();
+
   void CloseBracketProcessing();
   void EndOfExpressionProcessing();
   void TranslateFromStackToQueue();
 
   const std::string str_;
-  size_t pos_;
+  size_t pos_{0};
   Token container_{kNumber, kPrior1, 0.0};
+  Address last_address_ = kStack;
   std::stack<Token> stack_;
   std::queue<Token>* queue_;
 };

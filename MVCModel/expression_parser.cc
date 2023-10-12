@@ -6,6 +6,10 @@
 
 namespace e_calc {
 
+/*
+CONSTRUCTORS/DESTRUCTOR
+*/
+
 ExpressionParser::ExpressionParser() {}
 
 ExpressionParser::ExpressionParser(const std::string& infix_expression,
@@ -14,9 +18,11 @@ ExpressionParser::ExpressionParser(const std::string& infix_expression,
 
 ExpressionParser::~ExpressionParser() {}
 
+/*
+PUBLIC METHODS
+*/
+
 void ExpressionParser::ShuntingYardAlgorithm() {
-  // char* ptr = str_;
-  Address last_address = kStack;
   std::string token_chars{"1234567890.+-*/^%(cstalx"};
 
   while (!(str_.at(pos_) >= str_.size() && stack_.empty())) {
@@ -26,12 +32,16 @@ void ExpressionParser::ShuntingYardAlgorithm() {
       CloseBracketProcessing();
     } else if (str_.at(pos_) == ' ') {
       ++pos_;
-    } else if (str_.at(pos_) == '\0' && last_address == kStack) {
-      throw "Error: incorrect input";
+    
+    // if last token is not a number or ')'. make it in mvcview
+    } else if (str_.at(pos_) == '\0' && last_address_ == kStack) {
+      throw std::string("Error: incorrect input");
+    
     } else if (str_.at(pos_) == '\0') {
       EndOfExpressionProcessing();
-    } else {
-      throw "Error: undefined token";
+
+    // } else {
+    //   throw std::string("Error: undefined token");
     }
   }
 }
@@ -45,18 +55,26 @@ void ExpressionParser::TokenProcessing() {
   std::string operators_chars = "+-*/^%()";
 
   if (numbers_chars.find(str_.at(pos_)) != std::string::npos) {
-    container_.type = kNumber;
-    std::stod(str_.substr(pos_));
-      // numbers_chars.substr(pos_,
-                        //  pos_ + str_.find_first_not_of(numbers_chars, pos_)));
+    ValueTokenProcessing();
   } else if (operators_chars.find(str_.at(pos_)) != std::string::npos) {
-
+    // operators
+  } else {
+    // functions
   }
+}
+
+void ExpressionParser::ValueTokenProcessing() {
+  container_.type = kNumber;
+  container_.value = std::stod(str_.substr(pos_));
+  queue_->push(container_);
+
+  pos_ = str_.find_first_not_of("0123456789.", pos_);
+  last_address_ = kQueue;
 }
 
 void ExpressionParser::CloseBracketProcessing() {
   if (stack_.top().type == kOpenBracket) {
-    throw "Error: empty brackets";
+    throw std::string("Error: empty brackets");
   }
 
   // stack_ -> queue_ while token != '('
@@ -64,9 +82,9 @@ void ExpressionParser::CloseBracketProcessing() {
     TranslateFromStackToQueue();
   }
 
-  // remove '(' from the stack_
+  // remove '(' from the stack_ or throw exception
   if (stack_.empty() == true) {
-    throw "Error: unbalanced brackets";
+    throw std::string("Error: unbalanced brackets");
   } else {
     stack_.pop();
   }
@@ -80,7 +98,7 @@ void ExpressionParser::CloseBracketProcessing() {
 void ExpressionParser::EndOfExpressionProcessing() {
   while (stack_.empty() == false) {
     if (stack_.top().type == kOpenBracket) {
-      throw "Error: unbalanced brackets";
+      throw std::string("Error: unbalanced brackets");
     } else {
       queue_->push(stack_.top());
       stack_.pop();
