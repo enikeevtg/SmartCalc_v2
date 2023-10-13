@@ -40,8 +40,8 @@ void ExpressionParser::ShuntingYardAlgorithm() {
     } else if (str_.at(pos_) == '\0') {
       EndOfExpressionProcessing();
 
-    // } else {
-    //   throw std::string("Error: undefined token");
+    } else {
+      throw std::string("Error: undefined token");
     }
   }
 }
@@ -56,8 +56,10 @@ void ExpressionParser::TokenProcessing() {
 
   if (numbers_chars.find(str_.at(pos_)) != std::string::npos) {
     ValueTokenProcessing();
+  } else if (str_.at(pos_) == 'x') {
+    // variable
   } else if (operators_chars.find(str_.at(pos_)) != std::string::npos) {
-    // operators
+    OperatorTokenProccesing();
   } else {
     // functions
   }
@@ -71,6 +73,40 @@ void ExpressionParser::ValueTokenProcessing() {
   pos_ = str_.find_first_not_of("0123456789.", pos_);
   last_address_ = kQueue;
 }
+
+void ExpressionParser::OperatorTokenProccesing() {
+  char op_char = str_.at(pos_);
+
+  if (op_char == '+' && last_address_ == kStack) {
+    container_.type = kUplus;
+    container_.prior = kPrior4;
+  } else if (op_char == '-' && last_address_ == kStack) {
+    container_.type = kUminus;
+    container_.prior = kPrior4;
+  } else if (op_char == '(') {
+    container_.type = kOpenBracket;
+    container_.prior = kPrior1;
+  } else if (op_char == '+' && last_address_ == kQueue) {
+    container_.type = kPlus;
+    container_.prior = kPrior2;
+  } else if (op_char == '-' && last_address_ == kQueue) {
+    container_.type = kMinus;
+    container_.prior = kPrior2;
+  } else if (op_char == '*') {
+    container_.type = kMult;
+    container_.prior = kPrior3;
+  } else if (op_char == '/') {
+    container_.type = kDiv;
+    container_.prior = kPrior3;
+  } else if (op_char == '%') {
+    container_.type = kMod;
+    container_.prior = kPrior3;
+  } else if (op_char == '^') {
+    container_.type = kPow;
+    container_.prior = kPrior3;
+  }
+}
+
 
 void ExpressionParser::CloseBracketProcessing() {
   if (stack_.top().type == kOpenBracket) {

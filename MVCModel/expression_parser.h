@@ -22,6 +22,7 @@ class ExpressionParser {
 
   void TokenProcessing();
   void ValueTokenProcessing();
+  void OperatorTokenProccesing();
 
   void CloseBracketProcessing();
   void EndOfExpressionProcessing();
