@@ -1,5 +1,7 @@
 #include "expression_parser.h"
 
+#include <iostream>
+
 namespace e_calc {
 
 /*
@@ -21,8 +23,10 @@ PUBLIC METHODS
 void ExpressionParser::ShuntingYardAlgorithm() {
   std::string token_chars{"1234567890.+-*/^%(cstalx"};
 
-  while (!(str_.at(pos_) >= str_.size() && stack_.empty())) {
-    if (token_chars.find(str_.at(pos_)) != std::string::npos) {
+  while (!(pos_ == str_.size() && stack_.empty() == true)) {
+    if (pos_ == str_.size()) {
+      EndOfExpressionProcessing();
+    } else if (token_chars.find(str_.at(pos_)) != std::string::npos) {
       TokenProcessing();
     } else if (str_.at(pos_) == ')') {
       CloseBracketProcessing();
@@ -33,12 +37,20 @@ void ExpressionParser::ShuntingYardAlgorithm() {
     } else if (str_.at(pos_) == '\0' && last_address_ == kStack) {
       throw std::string("Error: incorrect input");
 
-    } else if (str_.at(pos_) == '\0') {
-      EndOfExpressionProcessing();
-
     } else {
       throw std::string("Error: undefined token");
     }
+
+    std::cout << "stack_.top(): ";
+    if (stack_.empty() == false)
+      std::cerr << int(stack_.top().type) << ' ';
+    std::cout << "queue: ";
+    if (queue_->empty() == false)
+      if (queue_->back().type == kNumber)
+        std::cerr << int(queue_->back().value);
+      else
+        std::cerr << int(queue_->back().type);
+    std::cerr << std::endl;
   }
 }
 
@@ -55,7 +67,7 @@ void ExpressionParser::TokenProcessing() {
   } else if (str_.at(pos_) == 'x') {
     VariableTokenProcessing();
   } else if (operators_chars.find(str_.at(pos_)) != std::string::npos) {
-    OperatorTokenProccesing();
+    OperatorTokenProcessing();
   } else {
     FunctionTokenProcessing();
   }
@@ -67,6 +79,7 @@ void ExpressionParser::ValueTokenProcessing() {
   queue_->push(container_);
 
   pos_ = str_.find_first_not_of("0123456789.", pos_);
+  if (pos_ > str_.size()) pos_ = str_.size();
   last_address_ = kQueue;
 }
 
@@ -78,7 +91,7 @@ void ExpressionParser::VariableTokenProcessing() {
   last_address_ = kQueue;
 }
 
-void ExpressionParser::OperatorTokenProccesing() {
+void ExpressionParser::OperatorTokenProcessing() {
   char op_char = str_.at(pos_);
 
   if (op_char == '+' && last_address_ == kStack) {
@@ -110,7 +123,7 @@ void ExpressionParser::OperatorTokenProccesing() {
     container_.prior = kPrior3;
   }
 
-  if (container_.type != kPow) {
+  if (container_.type != kOpenBracket && container_.type != kPow) {
     while (stack_.empty() == false && container_.prior <= stack_.top().prior) {
       TranslateFromStackToQueue();
     }
@@ -142,10 +155,10 @@ void ExpressionParser::FunctionTokenProcessing() {
 }
 
 void ExpressionParser::CloseBracketProcessing() {
-  // make it (exception) in MVCView
-  if (stack_.top().type == kOpenBracket) {
-    throw std::string("Error: empty brackets");
-  }
+  // it is made (exception) in MVCView
+  // if (last_address_ == kStack && stack_.top().type == kOpenBracket) {
+  //   throw std::string("Error: empty brackets");
+  // }
 
   // stack_ -> queue_ while token != '('
   // while (stack_.empty() == false && stack_.top().type != kOpenBracket) {
@@ -162,9 +175,11 @@ void ExpressionParser::CloseBracketProcessing() {
   }
 
   // if there is unary function before the '('
-  if (stack_.empty() == false && stack_.top().value < kOpenBracket) {
+  if (stack_.top().type < kOpenBracket) {
     TranslateFromStackToQueue();
   }
+
+  ++pos_;
 }
 
 void ExpressionParser::EndOfExpressionProcessing() {
