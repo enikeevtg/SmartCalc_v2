@@ -41,16 +41,18 @@ void ExpressionParser::ShuntingYardAlgorithm() {
       throw std::string("Error: undefined token");
     }
 
-    std::cout << "stack_.top(): ";
-    if (stack_.empty() == false)
-      std::cerr << int(stack_.top().type) << ' ';
-    std::cout << "queue: ";
-    if (queue_->empty() == false)
-      if (queue_->back().type == kNumber)
-        std::cerr << int(queue_->back().value);
-      else
-        std::cerr << int(queue_->back().type);
-    std::cerr << std::endl;
+    ///////////////////// Debug: ///////////////////////
+    // std::cout << "stack_.top(): ";
+    // if (stack_.empty() == false)
+    //   std::cerr << int(stack_.top().type) << ' ';
+    // std::cout << "queue: ";
+    // if (queue_->empty() == false)
+    //   if (queue_->back().type == kNumber)
+    //     std::cerr << int(queue_->back().value);
+    //   else
+    //     std::cerr << int(queue_->back().type);
+    // std::cerr << std::endl;
+    ///////////////////////////////////////////////////
   }
 }
 
@@ -155,24 +157,11 @@ void ExpressionParser::FunctionTokenProcessing() {
 }
 
 void ExpressionParser::CloseBracketProcessing() {
-  // it is made (exception) in MVCView
-  // if (last_address_ == kStack && stack_.top().type == kOpenBracket) {
-  //   throw std::string("Error: empty brackets");
-  // }
-
   // stack_ -> queue_ while token != '('
-  // while (stack_.empty() == false && stack_.top().type != kOpenBracket) {
   while (stack_.top().type != kOpenBracket) {
     TranslateFromStackToQueue();
   }
-
-  // remove '(' from the stack_ or throw exception
-  // make it (exception) in MVCView
-  if (stack_.empty() == true) {
-    throw std::string("Error: unbalanced brackets");
-  } else {
-    stack_.pop();
-  }
+  stack_.pop();
 
   // if there is unary function before the '('
   if (stack_.top().type < kOpenBracket) {
@@ -184,12 +173,8 @@ void ExpressionParser::CloseBracketProcessing() {
 
 void ExpressionParser::EndOfExpressionProcessing() {
   while (stack_.empty() == false) {
-    if (stack_.top().type == kOpenBracket) {
-      throw std::string("Error: unbalanced brackets");
-    } else {
-      queue_->push(stack_.top());
-      stack_.pop();
-    }
+    queue_->push(stack_.top());
+    stack_.pop();
   }
 }
 
