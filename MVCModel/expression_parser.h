@@ -3,6 +3,7 @@
 
 #include <queue>
 #include <stack>
+#include <string>
 
 #include "token.h"
 

@@ -1,9 +1,5 @@
 #include "expression_parser.h"
 
-#include <cstring>
-#include <stack>
-#include <string>
-
 namespace e_calc {
 
 /*
@@ -33,7 +29,7 @@ void ExpressionParser::ShuntingYardAlgorithm() {
     } else if (str_.at(pos_) == ' ') {
       ++pos_;
     
-    // if last token is not a number or ')'. make it in mvcview
+    // if last token is not a number or ')'. make it in MVCView
     } else if (str_.at(pos_) == '\0' && last_address_ == kStack) {
       throw std::string("Error: incorrect input");
     
@@ -105,20 +101,32 @@ void ExpressionParser::OperatorTokenProccesing() {
     container_.type = kPow;
     container_.prior = kPrior3;
   }
+
+  if (container_.type != kPow) {
+    while (stack_.empty() == false && container_.prior <= stack_.top().prior) {
+      TranslateFromStackToQueue();
+    }
+  }
+  stack_.push(container_);
+
+  ++pos_;
+  last_address_ = kStack;
 }
 
-
 void ExpressionParser::CloseBracketProcessing() {
+  // make it (exception) in MVCView
   if (stack_.top().type == kOpenBracket) {
     throw std::string("Error: empty brackets");
   }
 
   // stack_ -> queue_ while token != '('
-  while (stack_.empty() == false && stack_.top().type != kOpenBracket) {
+  // while (stack_.empty() == false && stack_.top().type != kOpenBracket) {
+  while (stack_.top().type != kOpenBracket) {
     TranslateFromStackToQueue();
   }
 
   // remove '(' from the stack_ or throw exception
+  // make it (exception) in MVCView
   if (stack_.empty() == true) {
     throw std::string("Error: unbalanced brackets");
   } else {
