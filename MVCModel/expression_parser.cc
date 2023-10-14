@@ -28,11 +28,11 @@ void ExpressionParser::ShuntingYardAlgorithm() {
       CloseBracketProcessing();
     } else if (str_.at(pos_) == ' ') {
       ++pos_;
-    
-    // if last token is not a number or ')'. make it in MVCView
+
+      // if last token is not a number or ')'. make it in MVCView
     } else if (str_.at(pos_) == '\0' && last_address_ == kStack) {
       throw std::string("Error: incorrect input");
-    
+
     } else if (str_.at(pos_) == '\0') {
       EndOfExpressionProcessing();
 
@@ -53,11 +53,11 @@ void ExpressionParser::TokenProcessing() {
   if (numbers_chars.find(str_.at(pos_)) != std::string::npos) {
     ValueTokenProcessing();
   } else if (str_.at(pos_) == 'x') {
-    // variable
+    VariableTokenProcessing();
   } else if (operators_chars.find(str_.at(pos_)) != std::string::npos) {
     OperatorTokenProccesing();
   } else {
-    // functions
+    FunctionTokenProcessing();
   }
 }
 
@@ -67,6 +67,14 @@ void ExpressionParser::ValueTokenProcessing() {
   queue_->push(container_);
 
   pos_ = str_.find_first_not_of("0123456789.", pos_);
+  last_address_ = kQueue;
+}
+
+void ExpressionParser::VariableTokenProcessing() {
+  container_.type = kVar;
+  queue_->push(container_);
+
+  ++pos_;
   last_address_ = kQueue;
 }
 
@@ -110,6 +118,26 @@ void ExpressionParser::OperatorTokenProccesing() {
   stack_.push(container_);
 
   ++pos_;
+  last_address_ = kStack;
+}
+
+void ExpressionParser::FunctionTokenProcessing() {
+  std::vector<std::string> math_functions_names{
+      "cos", "sin", "tan", "acos", "asin", "atan", "sqrt", "ln", "log"};
+
+  size_t end_pos = str_.find_first_of('(', pos_);
+  std::string function_name = str_.substr(pos_, end_pos - pos_);
+
+  int function_id = 0;
+  while (function_name != math_functions_names[function_id]) {
+    ++function_id;
+  }
+
+  container_.type = TokenType(function_id);
+  container_.prior = kPrior4;
+  stack_.push(container_);
+
+  pos_ = end_pos;
   last_address_ = kStack;
 }
 

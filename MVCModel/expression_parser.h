@@ -4,6 +4,7 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <vector>
 
 #include "token.h"
 
@@ -23,7 +24,9 @@ class ExpressionParser {
 
   void TokenProcessing();
   void ValueTokenProcessing();
+  void VariableTokenProcessing();
   void OperatorTokenProccesing();
+  void FunctionTokenProcessing();
 
   void CloseBracketProcessing();
   void EndOfExpressionProcessing();
