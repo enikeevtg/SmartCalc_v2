@@ -13,22 +13,18 @@ ExpressionSolver::ExpressionSolver() {}
 ExpressionSolver::ExpressionSolver(std::queue<Token>* reverse_polish_notation)
     : queue_(reverse_polish_notation) {}
 
-ExpressionSolver::ExpressionSolver(std::queue<Token>* reverse_polish_notation,
-                                   double var)
-    : queue_(reverse_polish_notation), var_(var) {}
-
 ExpressionSolver::~ExpressionSolver() {}
 
 /*
 PUBLIC METHODS
 */
 
-double ExpressionSolver::Solve() {
+double ExpressionSolver::GetResult(const double& var) {
   while (queue_->empty() == false) {
     if (queue_->front().type == kNumber) {
       TranslateFromQueueToStack();
     } else if (queue_->front().type == kVar) {
-      queue_->front().value = var_;
+      queue_->front().value = var;
       TranslateFromQueueToStack();
     } else {
       NumericalCalculation(queue_->front().type);

@@ -24,19 +24,16 @@ void ExpressionParser::ShuntingYardAlgorithm() {
   std::string token_chars{"1234567890.+-*/^%(cstalx"};
 
   while (!(pos_ == str_.size() && stack_.empty() == true)) {
-    if (pos_ == str_.size()) {
+    if (pos_ == str_.size() && last_address_ != kStack) {
       EndOfExpressionProcessing();
-    } else if (token_chars.find(str_.at(pos_)) != std::string::npos) {
-      TokenProcessing();
+    } else if (pos_ == str_.size() && last_address_ == kStack) {
+      throw "Error: incorrect last input token";
     } else if (str_.at(pos_) == ')') {
       CloseBracketProcessing();
+    } else if (token_chars.find(str_.at(pos_)) != std::string::npos) {
+      TokenProcessing();
     } else if (str_.at(pos_) == ' ') {
       ++pos_;
-
-      // if last token is not a number or ')'. make it in MVCView
-    } else if (str_.at(pos_) == '\0' && last_address_ == kStack) {
-      throw std::string("Error: incorrect input");
-
     } else {
       throw std::string("Error: undefined token");
     }
@@ -140,7 +137,7 @@ void ExpressionParser::FunctionTokenProcessing() {
   std::vector<std::string> math_functions_names{
       "cos", "sin", "tan", "acos", "asin", "atan", "sqrt", "ln", "log"};
 
-  size_t end_pos = str_.find_first_of('(', pos_);
+  size_t end_pos = str_.find_first_of("(0123456789x", pos_);
   std::string function_name = str_.substr(pos_, end_pos - pos_);
 
   int function_id = 0;
@@ -157,6 +154,10 @@ void ExpressionParser::FunctionTokenProcessing() {
 }
 
 void ExpressionParser::CloseBracketProcessing() {
+  if (last_address_ == kStack) {
+    throw "Error: incorrect input";
+  }
+
   // stack_ -> queue_ while token != '('
   while (stack_.top().type != kOpenBracket) {
     TranslateFromStackToQueue();
@@ -173,6 +174,9 @@ void ExpressionParser::CloseBracketProcessing() {
 
 void ExpressionParser::EndOfExpressionProcessing() {
   while (stack_.empty() == false) {
+    if (stack_.top().type == kOpenBracket) {
+      throw "Error: unbalanced brackets";
+    }
     queue_->push(stack_.top());
     stack_.pop();
   }

@@ -14,16 +14,14 @@ class ExpressionSolver {
  public:
   ExpressionSolver();
   ExpressionSolver(std::queue<Token>* reverse_polish_notation);
-  ExpressionSolver(std::queue<Token>* reverse_polish_notation, double var);
   ~ExpressionSolver();
 
-  double Solve();
+  double GetResult(const double& var);
 
  private:
   void NumericalCalculation(const TokenType& function_id);
   void TranslateFromQueueToStack();
 
-  double var_;
   std::stack<Token> stack_;
   std::queue<Token>* queue_;
 };
