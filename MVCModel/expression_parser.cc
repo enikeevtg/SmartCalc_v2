@@ -165,7 +165,7 @@ void ExpressionParser::CloseBracketProcessing() {
   stack_.pop();
 
   // if there is unary function before the '('
-  if (stack_.top().type < kOpenBracket) {
+  if (stack_.empty() == false && stack_.top().type < kOpenBracket) {
     TranslateFromStackToQueue();
   }
 
@@ -177,8 +177,7 @@ void ExpressionParser::EndOfExpressionProcessing() {
     if (stack_.top().type == kOpenBracket) {
       throw "Error: unbalanced brackets";
     }
-    queue_->push(stack_.top());
-    stack_.pop();
+    TranslateFromStackToQueue();
   }
 }
 

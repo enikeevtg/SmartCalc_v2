@@ -11,7 +11,7 @@ CONSTRUCTORS/DESTRUCTOR
 ExpressionSolver::ExpressionSolver() {}
 
 ExpressionSolver::ExpressionSolver(std::queue<Token>* reverse_polish_notation)
-    : queue_(reverse_polish_notation) {}
+    : reverse_polish_notation_(reverse_polish_notation) {}
 
 ExpressionSolver::~ExpressionSolver() {}
 
@@ -20,15 +20,16 @@ PUBLIC METHODS
 */
 
 double ExpressionSolver::GetResult(const double& var) {
-  while (queue_->empty() == false) {
-    if (queue_->front().type == kNumber) {
+  queue_ = *reverse_polish_notation_;
+  while (queue_.empty() == false) {
+    if (queue_.front().type == kNumber) {
       TranslateFromQueueToStack();
-    } else if (queue_->front().type == kVar) {
-      queue_->front().value = var;
+    } else if (queue_.front().type == kVar) {
+      queue_.front().value = var;
       TranslateFromQueueToStack();
     } else {
-      NumericalCalculation(queue_->front().type);
-      queue_->pop();
+      NumericalCalculation(queue_.front().type);
+      queue_.pop();
     }
   }
   return stack_.top().value;
@@ -78,8 +79,8 @@ void ExpressionSolver::NumericalCalculation(const TokenType& function_id) {
 }
 
 void ExpressionSolver::TranslateFromQueueToStack() {
-  stack_.push(queue_->front());
-  queue_->pop();
+  stack_.push(queue_.front());
+  queue_.pop();
 }
 
 }  // namespace e_calc

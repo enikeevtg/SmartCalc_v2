@@ -22,8 +22,9 @@ class ExpressionSolver {
   void NumericalCalculation(const TokenType& function_id);
   void TranslateFromQueueToStack();
 
+  std::queue<Token>* reverse_polish_notation_;
   std::stack<Token> stack_;
-  std::queue<Token>* queue_;
+  std::queue<Token> queue_;
 };
 
 }  // namespace e_calc

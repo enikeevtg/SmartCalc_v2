@@ -15,10 +15,10 @@ namespace e_calc {
 class Controller {
  public:
   Controller();
-  Controller(std::string expression, double var);
+  Controller(std::string expression);
   ~Controller();
 
-  double GetResult(double var);
+  double GetResult(const double& var);
 
  private:
   std::queue<Token> reverse_polish_notation_;
