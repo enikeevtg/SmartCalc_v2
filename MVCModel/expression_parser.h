@@ -13,11 +13,10 @@ namespace e_calc {
 class ExpressionParser {
  public:
   ExpressionParser();
-  ExpressionParser(const std::string& infix_expression,
-                   std::queue<Token>* reverse_polish_notation);
+  ExpressionParser(std::queue<Token>* reverse_polish_notation);
   ~ExpressionParser();
 
-  void ShuntingYardAlgorithm();
+  void ConvertInfixToPostfix(const std::string& infix_expression);
 
  private:
   enum Address { kStack, kQueue };
@@ -32,7 +31,7 @@ class ExpressionParser {
   void EndOfExpressionProcessing();
   void TranslateFromStackToQueue();
 
-  const std::string str_;
+  std::string str_;
   size_t pos_{0};
   Token container_{kNumber, kPrior1, 0.0};
   Address last_address_ = kStack;

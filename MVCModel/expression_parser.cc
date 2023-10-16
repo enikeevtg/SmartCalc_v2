@@ -10,9 +10,8 @@ CONSTRUCTORS/DESTRUCTOR
 
 ExpressionParser::ExpressionParser() {}
 
-ExpressionParser::ExpressionParser(const std::string& infix_expression,
-                                   std::queue<Token>* reverse_polish_notation)
-    : str_(infix_expression), queue_(reverse_polish_notation) {}
+ExpressionParser::ExpressionParser(std::queue<Token>* reverse_polish_notation)
+    : queue_(reverse_polish_notation) {}
 
 ExpressionParser::~ExpressionParser() {}
 
@@ -20,7 +19,9 @@ ExpressionParser::~ExpressionParser() {}
 PUBLIC METHODS
 */
 
-void ExpressionParser::ShuntingYardAlgorithm() {
+void ExpressionParser::ConvertInfixToPostfix(
+    const std::string& infix_expression) {
+  str_ = infix_expression;
   std::string token_chars{"1234567890.+-*/^%(cstalx"};
 
   while (!(pos_ == str_.size() && stack_.empty() == true)) {
@@ -141,8 +142,13 @@ void ExpressionParser::FunctionTokenProcessing() {
   std::string function_name = str_.substr(pos_, end_pos - pos_);
 
   int function_id = 0;
-  while (function_name != math_functions_names[function_id]) {
+  while (function_id < math_functions_names.size() &&
+         function_name != math_functions_names[function_id]) {
     ++function_id;
+  }
+
+  if (function_id == math_functions_names.size()) {
+    throw "Error: undefined token";
   }
 
   container_.type = TokenType(function_id);
