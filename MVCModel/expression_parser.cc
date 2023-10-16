@@ -1,6 +1,6 @@
 #include "expression_parser.h"
 
-#include <iostream>
+// #include <iostream>
 
 namespace e_calc {
 
@@ -10,8 +10,7 @@ CONSTRUCTORS/DESTRUCTOR
 
 ExpressionParser::ExpressionParser() {}
 
-ExpressionParser::ExpressionParser(std::queue<Token>* reverse_polish_notation)
-    : queue_(reverse_polish_notation) {}
+ExpressionParser::ExpressionParser(std::queue<Token>* queue) : queue_(queue) {}
 
 ExpressionParser::~ExpressionParser() {}
 
@@ -19,15 +18,20 @@ ExpressionParser::~ExpressionParser() {}
 PUBLIC METHODS
 */
 
-void ExpressionParser::ConvertInfixToPostfix(
-    const std::string& infix_expression) {
+void ExpressionParser::SetParser(const std::string& infix_expression) {
   str_ = infix_expression;
+  pos_ = 0;
+  last_address_ = kStack;
+}
+
+void ExpressionParser::ConvertInfixToPostfix() {
   std::string token_chars{"1234567890.+-*/^%(cstalx"};
 
   while (!(pos_ == str_.size() && stack_.empty() == true)) {
     if (pos_ == str_.size() && last_address_ != kStack) {
       EndOfExpressionProcessing();
     } else if (pos_ == str_.size() && last_address_ == kStack) {
+
       throw "Error: incorrect last input token";
     } else if (str_.at(pos_) == ')') {
       CloseBracketProcessing();

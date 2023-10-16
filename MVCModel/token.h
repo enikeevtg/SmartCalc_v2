@@ -1,6 +1,8 @@
 #ifndef SMARTCALC_V2_MVCMODEL_TOKEN_H_
 #define SMARTCALC_V2_MVCMODEL_TOKEN_H_
 
+namespace e_calc {
+
 enum TokenType {
   kCos,
   kSin,
@@ -33,5 +35,7 @@ struct Token {
   TokenPriority prior;
   double value;
 };
+
+}  // namespace e_calc
 
 #endif  // SMARTCALC_V2_MVCMODEL_TOKEN_H_

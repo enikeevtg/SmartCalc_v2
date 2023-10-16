@@ -13,10 +13,11 @@ namespace e_calc {
 class ExpressionParser {
  public:
   ExpressionParser();
-  ExpressionParser(std::queue<Token>* reverse_polish_notation);
+  ExpressionParser(std::queue<Token>* queue);
   ~ExpressionParser();
 
-  void ConvertInfixToPostfix(const std::string& infix_expression);
+  void SetParser(const std::string& infix_expression);
+  void ConvertInfixToPostfix();
 
  private:
   enum Address { kStack, kQueue };

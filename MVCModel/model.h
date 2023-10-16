@@ -7,26 +7,30 @@
 
 namespace e_calc {
 
+struct PlotPoints {
+  std::vector<double> x_coord;
+  std::vector<double> y_coord;
+};
+
 class Model {
  public:
-  Model() : parser_(&queue_), solver_(&queue_){};
-  ~Model(){};
+  Model();
+  ~Model();
 
-  double GetResult(const std::string& infix_expression, const double& var) {
-    CleanQueue();
-    parser_.ConvertInfixToPostfix(infix_expression);
-    return solver_.GetResult(var);
-  }
+  void SetModel(const std::string& infix_expression, const double& var);
+  double GetResult();
+  PlotPoints GetPlotPoints(const double& x_min, const double& x_max,
+                           const double& x_step);
 
  private:
-  void CleanQueue() {
-    std::queue<Token> empty_queue;
-    queue_.swap(empty_queue);
-  }
+  void CleanQueue();
 
+  std::string str_;
+  double var_;
   std::queue<Token> queue_;
   ExpressionParser parser_;
   ExpressionSolver solver_;
+  PlotPoints points_;
 };
 
 }  // namespace e_calc

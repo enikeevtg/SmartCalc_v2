@@ -1,7 +1,5 @@
 #include "expression_solver.h"
 
-#include <iostream>
-
 namespace e_calc {
 
 /*
