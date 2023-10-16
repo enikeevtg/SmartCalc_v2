@@ -31,7 +31,6 @@ void ExpressionParser::ConvertInfixToPostfix() {
     if (pos_ == str_.size() && last_address_ != kStack) {
       EndOfExpressionProcessing();
     } else if (pos_ == str_.size() && last_address_ == kStack) {
-
       throw "Error: incorrect last input token";
     } else if (str_.at(pos_) == ')') {
       CloseBracketProcessing();

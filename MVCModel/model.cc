@@ -16,6 +16,8 @@ PUBLIC METHODS
 void Model::SetModel(const std::string& infix_expression, const double& var) {
   str_ = infix_expression;
   var_ = var;
+  points_.x_coord.clear();
+  points_.y_coord.clear();
   parser_.SetParser(infix_expression);
 }
 
