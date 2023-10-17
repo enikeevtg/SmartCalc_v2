@@ -21,7 +21,7 @@ void CreditCalculator::SetCreditTerms(int& credit_type, double& total_amount,
   rate_ = rate / (100.0 * 12.0);
 }
 
-CreditPayments& CreditCalculator::PaymentsCalculation() {
+CreditPayments& CreditCalculator::GetCreditPayments() {
   if (credit_type_ == kAnnuity) {
     payments_.first_month_payment =
         (total_amount_ * rate_) / (1 - pow(1.0 + rate_, -term_));

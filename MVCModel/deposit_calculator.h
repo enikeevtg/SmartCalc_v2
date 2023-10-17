@@ -5,46 +5,36 @@
 
 namespace e_calc {
 
-struct CreditPayments {
-  double first_month_payment;
-  double last_month_payment;
-  double overpayment;
-  double total_payment;
+enum { kSimple, kCompound };
 
-  CreditPayments() {
-    first_month_payment = 0;
-    last_month_payment = 0;
-    overpayment = 0;
-    total_payment = 0;
-  }
-
-  CreditPayments& operator=(CreditPayments& other) {
-    first_month_payment = other.first_month_payment;
-    last_month_payment = other.last_month_payment;
-    overpayment = other.overpayment;
-    total_payment = other.total_payment;
-
-    return *this;
-  }
+struct DepositTerms {
+  int term;
+  int periodicity;
+  double total_begin;
+  double deposit_rate;  // in percentages
+  double tax_rate;
+  double* replenishments;
+  double* withdrawals;
 };
 
-enum CreditType { kAnnuity, kDiffer };
+struct DepositPayments {
+  double accrued_interest;
+  double tax_amount;
+  double total_end;
+};
 
-class CreditCalculator {
+class DepositCalculator {
  public:
-  CreditCalculator();
-  ~CreditCalculator();
+  DepositCalculator();
+  ~DepositCalculator();
 
-  void SetCreditTerms(int& credit_type, double& total_amount, int& term,
-                      double& rate);
-  CreditPayments& PaymentsCalculation();
+  void SetDepositTerms(int& type, DepositTerms* terms);
+  DepositPayments& GetDepositPayments();
 
  private:
-  int credit_type_;
-  double total_amount_;
-  int term_;
-  double rate_;
-  CreditPayments payments_;
+  int type_;
+  DepositTerms* terms_;
+  DepositPayments payments_;
 };
 
 }  // namespace e_calc

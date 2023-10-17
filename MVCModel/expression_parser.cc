@@ -149,12 +149,12 @@ void ExpressionParser::FunctionTokenProcessing() {
   std::string function_name = str_.substr(pos_, end_pos - pos_);
 
   int function_id = 0;
-  while (function_id < math_functions_names.size() &&
+  while (function_id < int(math_functions_names.size()) &&
          function_name != math_functions_names[function_id]) {
     ++function_id;
   }
 
-  if (function_id == math_functions_names.size()) {
+  if (function_id == int(math_functions_names.size())) {
     throw "Error: undefined token";
   }
 

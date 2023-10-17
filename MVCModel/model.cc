@@ -1,4 +1,4 @@
-#include "smartcalc_model.h"
+#include "model.h"
 
 namespace e_calc {
 
@@ -22,7 +22,7 @@ void Model::SetModel(const std::string& infix_expression, const double& var) {
   points_.y_coord.clear();
 }
 
-void Model::SetModel(int& credit_type, double& total_amount, int& term,
+void Model::SetCreditTerms(int& credit_type, double& total_amount, int& term,
                      double& rate) {
   credit_.SetCreditTerms(credit_type, total_amount, term, rate);
 }
@@ -32,7 +32,7 @@ double Model::GetResult() {
   return solver_.GetResult(var_);
 }
 
-PlotPoints Model::GetPlotPoints(const double& x_min, const double& x_max,
+PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
                                 const double& x_step) {
   if ((x_min < -1000000) || (x_max > 1000000) || (x_min >= x_max)) {
     throw "Error: incorrect plot range";
@@ -54,9 +54,18 @@ PlotPoints Model::GetPlotPoints(const double& x_min, const double& x_max,
   return points_;
 }
 
-CreditPayments& Model::PaymentsCalculation() {
-  return credit_.PaymentsCalculation();
+CreditPayments& Model::GetCreditPayments() {
+  return credit_.GetCreditPayments();
 }
+
+void Model::SetDepositTerms(int& type, DepositTerms* terms) {
+  deposit_.SetDepositTerms(type, terms);
+}
+
+DepositPayments& Model::GetDepositPayments() {
+  return deposit_.GetDepositPayments();
+}
+
 
 /*
 PRIVATE METHODS

@@ -5,6 +5,8 @@
 
 namespace e_calc {
 
+enum CreditType { kAnnuity, kDiffer };
+
 struct CreditPayments {
   double first_month_payment;
   double last_month_payment;
@@ -28,8 +30,6 @@ struct CreditPayments {
   }
 };
 
-enum CreditType { kAnnuity, kDiffer };
-
 class CreditCalculator {
  public:
   CreditCalculator();
@@ -37,7 +37,7 @@ class CreditCalculator {
 
   void SetCreditTerms(int& credit_type, double& total_amount, int& term,
                       double& rate);
-  CreditPayments& PaymentsCalculation();
+  CreditPayments& GetCreditPayments();
 
  private:
   int credit_type_;
