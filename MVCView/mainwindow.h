@@ -29,37 +29,32 @@ class MainWindow : public QMainWindow {
  private slots:
   void on_pushButton_AC_clicked();
   void on_pushButton_delete_prev_clicked();
-  void lastTokenChecking();
+  void LastTokenChecking();
 
-  void clickedButtonDigits();
+  void ClickedButtonDigits();
   void on_pushButton_dot_clicked();
   void on_pushButton_var_clicked();
 
-  void clickedButtonOperations();
-  void unaryMinusInput();
-  void operatorInput(QString button_text);
-  void unaryMinusChanging();
+  void ClickedButtonOperations();
+  void UnaryMinusInput();
+  void OperatorInput(QString button_text);
+  void UnaryMinusChanging();
   void on_pushButton_op_pow_clicked();
 
   void on_pushButton_open_bracket_clicked();
   void on_pushButton_close_bracket_clicked();
 
   void on_pushButton_mfunc_inv_clicked();
-  void clickedButtonMathFunctions();
+  void ClickedButtonMathFunctions();
 
   void on_pushButton_calc_clicked();
   void on_pushButton_print_graph_clicked();
-  void graphPlot(double x_min, double x_max, double y_min, double y_max);
+  void GraphPlot(double x_min, double x_max, double y_min, double y_max);
 
   void on_action_credit_calculator_triggered();
   void on_action_deposit_calculator_triggered();
 
  private:
-  Ui::MainWindow* ui;
-  e_calc::Controller* controller_;
-  CreditCalcWindow* window_credit_calc;
-  DepositCalcWindow* window_deposit_calc;
-
   enum last_token_type_list {
     all_clean,
     num_token,
@@ -72,6 +67,11 @@ class MainWindow : public QMainWindow {
     math_func_token,
     calculation
   };
+
+  Ui::MainWindow* ui;
+  e_calc::Controller* controller_;
+  CreditCalcWindow* window_credit_calc;
+  DepositCalcWindow* window_deposit_calc;
   int last_token_type;
   bool is_dot_input;
   bool is_u_minus_input;

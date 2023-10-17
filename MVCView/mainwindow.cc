@@ -20,19 +20,19 @@ MainWindow::MainWindow(QWidget* parent)
 
   // DIGIT BUTTONS
   for (auto button : ui->buttonGroup_numbers->buttons()) {
-    connect(button, SIGNAL(clicked()), this, SLOT(clickedButtonDigits()));
+    connect(button, SIGNAL(clicked()), this, SLOT(ClickedButtonDigits()));
   }
 
   // OPERATORS BUTTONS
   for (auto button : ui->buttonGroup_operators->buttons()) {
-    connect(button, SIGNAL(clicked()), this, SLOT(clickedButtonOperations()));
+    connect(button, SIGNAL(clicked()), this, SLOT(ClickedButtonOperations()));
   }
 
   // MATH FUNCTIONS BUTTONS
   ui->pushButton_mfunc_inv->setCheckable(true);
   for (auto button : ui->buttonGroup_mfunctions->buttons()) {
     connect(button, SIGNAL(clicked()), this,
-            SLOT(clickedButtonMathFunctions()));
+            SLOT(ClickedButtonMathFunctions()));
   }
 
   // VARIABLE SPINBOX
@@ -138,11 +138,11 @@ void MainWindow::on_pushButton_delete_prev_clicked() {
   if (input_label_text == "") {
     ui->pushButton_0->click();
   } else {
-    lastTokenChecking();
+    LastTokenChecking();
   }
 }
 
-void MainWindow::lastTokenChecking() {
+void MainWindow::LastTokenChecking() {
   QString last_label_char = ui->label_input->text().last(1);
 
   is_dot_input = false;
@@ -176,7 +176,7 @@ void MainWindow::lastTokenChecking() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // DIGITS AND VARIABLE
-void MainWindow::clickedButtonDigits() {
+void MainWindow::ClickedButtonDigits() {
   if (last_token_type == calculation) {
     on_pushButton_delete_prev_clicked();
   }
@@ -239,7 +239,7 @@ void MainWindow::on_pushButton_var_clicked() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // OPERATORS
-void MainWindow::clickedButtonOperations() {
+void MainWindow::ClickedButtonOperations() {
   if (last_token_type == calculation) {
     on_pushButton_delete_prev_clicked();
   }
@@ -265,21 +265,21 @@ void MainWindow::clickedButtonOperations() {
     if ((ui->label_input->text() == "0" ||
          last_token_type == open_bracket_token) &&
         button_text == "-") {
-      unaryMinusInput();
+      UnaryMinusInput();
     } else if (last_token_type != open_bracket_token) {
-      operatorInput(button_text);
+      OperatorInput(button_text);
     }
   } else {  // last_token_type is op_token
     if (ui->label_input->text() == "-" && button_text != "-") {
-      unaryMinusChanging();
+      UnaryMinusChanging();
     } else if (is_u_minus_input == false) {
       on_pushButton_delete_prev_clicked();
-      operatorInput(button_text);
+      OperatorInput(button_text);
     }
   }
 }
 
-void MainWindow::unaryMinusInput() {
+void MainWindow::UnaryMinusInput() {
   if (ui->label_input->text() == "0") {
     ui->label_input->setText("-");
   } else if (last_token_type == open_bracket_token) {
@@ -289,14 +289,14 @@ void MainWindow::unaryMinusInput() {
   is_u_minus_input = true;
 }
 
-void MainWindow::operatorInput(QString button_text) {
+void MainWindow::OperatorInput(QString button_text) {
   ui->label_input->setText(ui->label_input->text() + " " + button_text + " ");
   is_dot_input = false;
   is_u_minus_input = false;
   last_token_type = op_token;
 }
 
-void MainWindow::unaryMinusChanging() {
+void MainWindow::UnaryMinusChanging() {
   on_pushButton_delete_prev_clicked();
   ui->pushButton_0->click();
 }
@@ -380,7 +380,7 @@ void MainWindow::on_pushButton_mfunc_inv_clicked() {
   }
 }
 
-void MainWindow::clickedButtonMathFunctions() {
+void MainWindow::ClickedButtonMathFunctions() {
   if (last_token_type == calculation) {
     on_pushButton_delete_prev_clicked();
   }
@@ -440,13 +440,13 @@ void MainWindow::on_pushButton_print_graph_clicked() {
   double y_max = ui->doubleSpinBox_ymax->value();
 
   if (x_max - x_min > 0 && y_max - y_min > 0) {
-    graphPlot(x_min, x_max, y_min, y_max);
+    GraphPlot(x_min, x_max, y_min, y_max);
   } else {
     ui->statusBar->showMessage("Error: incorrect plot range");
   }
 }
 
-void MainWindow::graphPlot(double x_min, double x_max, double y_min,
+void MainWindow::GraphPlot(double x_min, double x_max, double y_min,
                            double y_max) {
   std::string expression = ui->label_input->text()
                                .replace(" ", "")
