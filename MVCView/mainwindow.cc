@@ -79,7 +79,7 @@ MainWindow::~MainWindow() { delete ui; }
 ////////////////////////////////////////////////////////////////////////////////
 // FINANCIAL MODES
 void MainWindow::on_action_credit_calculator_triggered() {
-  window_credit_calc = new CreditCalcWindow();
+  window_credit_calc = new CreditCalcWindow(controller_);
   window_credit_calc->setFixedSize(640, 549);
   window_credit_calc->show();
 }
@@ -253,8 +253,6 @@ void MainWindow::ClickedButtonOperations() {
     button_text = "/";
   } else if (button_text == "−") {
     button_text = "-";
-    //  } else if (button_text == "mod") {
-    //    button_text = "%";
   }
 
   if (last_token_type != op_token) {

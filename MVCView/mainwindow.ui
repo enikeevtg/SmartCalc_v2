@@ -837,9 +837,9 @@ QPushButton:pressed {
     </property>
     <property name="geometry">
      <rect>
-      <x>725</x>
+      <x>605</x>
       <y>290</y>
-      <width>275</width>
+      <width>395</width>
       <height>50</height>
      </rect>
     </property>
@@ -1171,7 +1171,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="pushButton_var">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>550</x>
       <y>290</y>
       <width>55</width>
       <height>50</height>
@@ -1349,11 +1349,17 @@ QPushButton:pressed {
    <widget class="QDoubleSpinBox" name="doubleSpinBox_xmin">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>605</x>
       <y>340</y>
-      <width>70</width>
+      <width>65</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QDoubleSpinBox {
@@ -1365,11 +1371,17 @@ QPushButton:pressed {
    <widget class="QDoubleSpinBox" name="doubleSpinBox_xmax">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>605</x>
       <y>390</y>
-      <width>70</width>
+      <width>65</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QDoubleSpinBox {
@@ -1381,11 +1393,17 @@ QPushButton:pressed {
    <widget class="QDoubleSpinBox" name="doubleSpinBox_ymin">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>605</x>
       <y>440</y>
-      <width>70</width>
+      <width>65</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QDoubleSpinBox {
@@ -1397,11 +1415,17 @@ QPushButton:pressed {
    <widget class="QDoubleSpinBox" name="doubleSpinBox_ymax">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>605</x>
       <y>490</y>
-      <width>70</width>
+      <width>65</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QDoubleSpinBox {
@@ -1460,6 +1484,110 @@ QPushButton:pressed {
     </property>
     <property name="margin">
      <number>11</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_x_min">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>340</y>
+      <width>55</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	border: 1px solid rgb(31, 38, 50);
+	background-color: rgb(41, 50, 66);
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Xmin</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_x_max">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>390</y>
+      <width>55</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	border: 1px solid rgb(31, 38, 50);
+	background-color: rgb(41, 50, 66);
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Xmax</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_y_min">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>440</y>
+      <width>55</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	border: 1px solid rgb(31, 38, 50);
+	background-color: rgb(41, 50, 66);
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Ymin</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_y_max">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>490</y>
+      <width>55</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	border: 1px solid rgb(31, 38, 50);
+	background-color: rgb(41, 50, 66);
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Ymax</string>
     </property>
    </widget>
   </widget>

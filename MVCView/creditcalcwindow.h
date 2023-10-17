@@ -3,9 +3,7 @@
 
 #include <QMainWindow>
 
-// extern "C" {
-//#include "../04_credit_calculator/credit_calculator.h"
-// }
+#include "../MVCController/controller.h"
 
 namespace Ui {
 class CreditCalcWindow;
@@ -15,16 +13,18 @@ class CreditCalcWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  explicit CreditCalcWindow(QWidget *parent = nullptr);
+  explicit CreditCalcWindow(QWidget* parent = nullptr);
+  explicit CreditCalcWindow(e_calc::Controller* controller);
   ~CreditCalcWindow();
 
  private slots:
 
   void on_pushButton_calculate_clicked();
-  //  void print_result(struct credit_output *result);
+  void print_result(e_calc::CreditPayments* payment);
 
  private:
-  Ui::CreditCalcWindow *ui;
+  Ui::CreditCalcWindow* ui;
+  e_calc::Controller* controller_;
 };
 
 #endif  // SMARTCALC_V2_01_UI_CREDITCALCWINDOW_H_
