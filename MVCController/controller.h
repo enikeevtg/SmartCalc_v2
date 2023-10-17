@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "../MVCModel/model.h"
-#include "../MVCModel/token.h"
+// #include "../MVCModel/token.h"
 
 namespace e_calc {
 
@@ -25,11 +25,20 @@ class Controller {
     model_->SetModel(infix_expression, var);
   }
 
+  void SetController(int& credit_type, double& total_amount, int& term,
+                     double& rate) {
+    model_->SetModel(credit_type, total_amount, term, rate);
+  }
+
   double GetResult() { return model_->GetResult(); }
 
   PlotPoints GetPlotPoints(const double& x_min, const double& x_max,
                            const double& x_step) {
     return model_->GetPlotPoints(x_min, x_max, x_step);
+  }
+
+  CreditPayments& PaymentsCalculation() {
+    return model_->PaymentsCalculation();
   }
 
  private:
