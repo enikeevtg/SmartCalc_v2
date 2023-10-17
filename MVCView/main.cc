@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
   e_calc::Controller controller{&model};
   MainWindow window_smart_calc{&controller};
 
-  window_smart_calc.setFixedSize(1090, 716);
+  window_smart_calc.setFixedSize(1000, 656);
   window_smart_calc.show();
   return app.exec();
 }
