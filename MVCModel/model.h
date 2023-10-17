@@ -1,6 +1,7 @@
 #ifndef SMARTCALC_V2_MVCMODEL_MODEL_H_
 #define SMARTCALC_V2_MVCMODEL_MODEL_H_
 
+#include "credit_calculator.h"
 #include "expression_parser.h"
 #include "expression_solver.h"
 #include "token.h"
@@ -22,6 +23,11 @@ class Model {
   PlotPoints GetPlotPoints(const double& x_min, const double& x_max,
                            const double& x_step);
 
+  void SetModel(int& credit_type, double& total_amount, int& term,
+                double& rate);
+
+  CreditPayments& PaymentsCalculation();
+
  private:
   void CleanQueue();
 
@@ -31,6 +37,7 @@ class Model {
   ExpressionParser parser_;
   ExpressionSolver solver_;
   PlotPoints points_;
+  CreditCalculator credit_;
 };
 
 }  // namespace e_calc
