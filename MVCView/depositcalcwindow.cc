@@ -110,44 +110,44 @@ void DepositCalcWindow::clickedRemoveRow() {
 ////////////////////////////////////////////////////////////////////////////////
 // CALCULATION
 void DepositCalcWindow::on_pushButton_calculate_clicked() {
-//  struct deposit_input data = {0, 0, 0.0, 0.0, 0.0, nullptr, nullptr};
-//  generateData(&data);
+  //  struct deposit_input data = {0, 0, 0.0, 0.0, 0.0, nullptr, nullptr};
+  //  generateData(&data);
 
-//  int error = VALID_ACCOUNT_BALANCE;
-//  struct deposit_output result = {0.0, 0.0, 0.0};
-//  if (ui->checkBox_capitalization->isChecked()) {
-//    error = deposit_calculation(&data, &result, COMPOUND);
-//  } else {
-//    error = deposit_calculation(&data, &result, SIMPLE);
-//  }
+  //  int error = VALID_ACCOUNT_BALANCE;
+  //  struct deposit_output result = {0.0, 0.0, 0.0};
+  //  if (ui->checkBox_capitalization->isChecked()) {
+  //    error = deposit_calculation(&data, &result, COMPOUND);
+  //  } else {
+  //    error = deposit_calculation(&data, &result, SIMPLE);
+  //  }
 
-//  if (error == VALID_ACCOUNT_BALANCE) {
-//    print_result(&result);
-//    ui->statusbar->showMessage("");
-//  } else {
-//    print_result(&result);
-//    ui->statusbar->showMessage("invalid account balance");
-//  }
+  //  if (error == VALID_ACCOUNT_BALANCE) {
+  //    print_result(&result);
+  //    ui->statusbar->showMessage("");
+  //  } else {
+  //    print_result(&result);
+  //    ui->statusbar->showMessage("invalid account balance");
+  //  }
 }
 
-//void DepositCalcWindow::generateData(struct deposit_input* pdata) {
-//  pdata->total_begin = ui->doubleSpinBox_deposit_total_amount->value();
-//  int scale = 1;
-//  if (ui->comboBox_term_mode->currentText() == "years") scale = 12;
-//  pdata->term = scale * ui->spinBox_deposit_term->value();
-//  pdata->deposit_rate = ui->doubleSpinBox_deposit_rate->value();
-//  pdata->tax_rate = ui->doubleSpinBox_deposit_tax_rate->value();
-//  pdata->periodicity = 1;
-//  QString periodicity_text = ui->comboBox_periodicity->currentText();
-//  if (periodicity_text == "once a quarter") {
-//    pdata->periodicity = 3;
-//  } else if (periodicity_text == "semiannually") {
-//    pdata->periodicity = 6;
-//  } else if (periodicity_text == "once a year") {
-//    pdata->periodicity = 12;
-//  } else if (periodicity_text == "at the end of the term") {
-//    pdata->periodicity = pdata->term;
-//  }
+// void DepositCalcWindow::generateData(struct deposit_input* pdata) {
+//   pdata->total_begin = ui->doubleSpinBox_deposit_total_amount->value();
+//   int scale = 1;
+//   if (ui->comboBox_term_mode->currentText() == "years") scale = 12;
+//   pdata->term = scale * ui->spinBox_deposit_term->value();
+//   pdata->deposit_rate = ui->doubleSpinBox_deposit_rate->value();
+//   pdata->tax_rate = ui->doubleSpinBox_deposit_tax_rate->value();
+//   pdata->periodicity = 1;
+//   QString periodicity_text = ui->comboBox_periodicity->currentText();
+//   if (periodicity_text == "once a quarter") {
+//     pdata->periodicity = 3;
+//   } else if (periodicity_text == "semiannually") {
+//     pdata->periodicity = 6;
+//   } else if (periodicity_text == "once a year") {
+//     pdata->periodicity = 12;
+//   } else if (periodicity_text == "at the end of the term") {
+//     pdata->periodicity = pdata->term;
+//   }
 
 //  QVector<double> vector_replenishments(pdata->term + 1);
 //  QVector<double> vector_withdrawals(pdata->term + 1);
@@ -167,8 +167,8 @@ void DepositCalcWindow::on_pushButton_calculate_clicked() {
 
 //  int withdrawals_number = ui->tableWidget_withdrawals_list->rowCount();
 //  for (int i = 0; i < withdrawals_number; i++) {
-//    month_number = ui->tableWidget_withdrawals_list->item(i, 0)->text().toInt();
-//    vector_withdrawals[month_number] +=
+//    month_number = ui->tableWidget_withdrawals_list->item(i,
+//    0)->text().toInt(); vector_withdrawals[month_number] +=
 //        ui->tableWidget_withdrawals_list->item(i, 1)->text().toDouble();
 //  }
 
@@ -176,13 +176,14 @@ void DepositCalcWindow::on_pushButton_calculate_clicked() {
 //  pdata->withdrawals = vector_withdrawals.data();
 //}
 
-//void DepositCalcWindow::print_result(struct deposit_output* presult) {
-//  QString currency = " " + ui->comboBox_currency_mode->currentText();
-//  QString accrues_interst = QString::number(presult->accrued_interest, 'f', 2);
-//  QString tax_amount = QString::number(presult->tax_amount, 'f', 2);
-//  QString total_end = QString::number(presult->total_end, 'f', 2);
+// void DepositCalcWindow::print_result(struct deposit_output* presult) {
+//   QString currency = " " + ui->comboBox_currency_mode->currentText();
+//   QString accrues_interst = QString::number(presult->accrued_interest, 'f',
+//   2); QString tax_amount = QString::number(presult->tax_amount, 'f', 2);
+//   QString total_end = QString::number(presult->total_end, 'f', 2);
 
-//  ui->label_value_deposit_accrued_interest->setText(accrues_interst + currency);
-//  ui->label_value_deposit_tax_amount->setText(tax_amount + currency);
-//  ui->label_value_deposit_end_amount->setText(total_end + currency);
+//  ui->label_value_deposit_accrued_interest->setText(accrues_interst +
+//  currency); ui->label_value_deposit_tax_amount->setText(tax_amount +
+//  currency); ui->label_value_deposit_end_amount->setText(total_end +
+//  currency);
 //}

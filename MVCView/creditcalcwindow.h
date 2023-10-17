@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
-//extern "C" {
+// extern "C" {
 //#include "../04_credit_calculator/credit_calculator.h"
-//}
+// }
 
 namespace Ui {
 class CreditCalcWindow;
@@ -21,7 +21,7 @@ class CreditCalcWindow : public QMainWindow {
  private slots:
 
   void on_pushButton_calculate_clicked();
-//  void print_result(struct credit_output *result);
+  //  void print_result(struct credit_output *result);
 
  private:
   Ui::CreditCalcWindow *ui;

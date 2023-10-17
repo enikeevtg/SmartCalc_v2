@@ -9,13 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    creditcalcwindow.cpp \
-    depositcalcwindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    qcustomplot.cpp
+    ../MVCModel/expression_parser.cc \
+    ../MVCModel/expression_solver.cc \
+    ../MVCModel/model.cc \
+    creditcalcwindow.cc \
+    depositcalcwindow.cc \
+    main.cc \
+    mainwindow.cc \
+    qcustomplot.cc
 
 HEADERS += \
+    ../MVCController/controller.h \
+    ../MVCModel/expression_parser.h \
+    ../MVCModel/expression_solver.h \
+    ../MVCModel/model.h \
+    ../MVCModel/token.h \
     creditcalcwindow.h \
     depositcalcwindow.h \
     mainwindow.h \

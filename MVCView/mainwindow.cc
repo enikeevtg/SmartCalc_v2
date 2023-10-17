@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "ui_mainwindow.h"
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
@@ -30,7 +31,8 @@ MainWindow::MainWindow(QWidget* parent)
   // MATH FUNCTIONS BUTTONS
   ui->pushButton_mfunc_inv->setCheckable(true);
   for (auto button : ui->buttonGroup_mfunctions->buttons()) {
-    connect(button, SIGNAL(clicked()), this, SLOT(clickedButtonMathFunctions()));
+    connect(button, SIGNAL(clicked()), this,
+            SLOT(clickedButtonMathFunctions()));
   }
 
   // VARIABLE SPINBOX
@@ -66,6 +68,10 @@ MainWindow::MainWindow(QWidget* parent)
 
   // TOOLBAR
   ui->toolBar->setMovable(false);
+}
+
+MainWindow::MainWindow(e_calc::Controller* controller) : MainWindow() {
+  controller_ = controller;
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -109,22 +115,23 @@ void MainWindow::on_pushButton_delete_prev_clicked() {
   QString last_input_char = input_label_text.last(1);
 
   if (last_token_type == calculation) {
-    reduced_size--;
+    --reduced_size;
   } else if (last_input_char == " ") {
     reduced_size -= 2;
+    if (input_label_text.last(4) == "mod ") reduced_size -= 2;
   } else if (last_input_char == "(") {
     while (reduced_size > 0 && input_label_text[reduced_size - 1] != ' ' &&
            input_label_text[reduced_size - 1] != '(' &&
            input_label_text[reduced_size - 1] != ')' &&
            input_label_text[reduced_size - 1] != '^') {
-      reduced_size--;
+      --reduced_size;
     }
     if (reduced_size > 0 && input_label_text[reduced_size - 1] == '^') {
-      reduced_size--;
+      --reduced_size;
     }
-    brackets_counter--;
+    --brackets_counter;
   } else if (last_input_char == ")") {
-    brackets_counter++;
+    ++brackets_counter;
   }
   input_label_text.resize(reduced_size);
   ui->label_input->setText(input_label_text);
@@ -240,14 +247,15 @@ void MainWindow::clickedButtonOperations() {
   QPushButton* button = (QPushButton*)sender();
   QString button_text = button->text();
 
-  if (button_text == "×")
+  if (button_text == "×") {
     button_text = "*";
-  else if (button_text == "÷")
+  } else if (button_text == "÷") {
     button_text = "/";
-  else if (button_text == "−")
+  } else if (button_text == "−") {
     button_text = "-";
-  else if (button_text == "mod")
-    button_text = "%";
+    //  } else if (button_text == "mod") {
+    //    button_text = "%";
+  }
 
   if (last_token_type != op_token) {
     if (last_token_type == dot_token) {
@@ -402,92 +410,69 @@ void MainWindow::on_pushButton_calc_clicked() {
     on_pushButton_delete_prev_clicked();
   }
 
-//  QString input_label_text = ui->label_input->text();
-//  QByteArray tmp_byte_array = input_label_text.toLatin1();
-//  tmp_byte_array.replace(" ", "");
-//  char* str_for_calc = tmp_byte_array.data();
+  QString input_label_text = ui->label_input->text();
+  std::string expression = ui->label_input->text()
+                               .replace(" ", "")
+                               .replace("mod", "%")
+                               .toStdString();
+  double var = ui->doubleSpinBox_var->value();
 
-//  int error = OK;
-//  double variable = ui->doubleSpinBox_var->value();
-//  double result = 0.0;
-//  node_t* q_root = NULL;
-//  error = convert_infix_to_RPN(str_for_calc, &q_root);
-//  if (error == OK) {
-//    error = evaluate_expression(q_root, variable, &result);
-//  }
+  try {
+    controller_->SetController(expression, var);
+    double result = controller_->GetResult();
 
-//  QString result_string;
-//  if (error == OK) {
-//    ui->statusBar->showMessage("");
-//    result_string = QString::number(result, 'g');
-//    ui->label_input->setText(input_label_text + " =");
-//    ui->label_output->setText(result_string);
-//    last_token_type = calculation;
-//  } else {
-//    ERRORS_MESSAGES;
-//    ui->statusBar->showMessage(errors_msg[error]);
-//  }
+    ui->statusBar->showMessage("");
+    QString result_string = QString::number(result, 'g');
+    ui->label_input->setText(input_label_text + " =");
+    ui->label_output->setText(result_string);
+    last_token_type = calculation;
+  } catch (const char* message) {
+    ui->statusBar->showMessage(message);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GRAPH
 void MainWindow::on_pushButton_print_graph_clicked() {
-//  double x_min = ui->doubleSpinBox_xmin->value();
-//  double x_max = ui->doubleSpinBox_xmax->value();
-//  double y_min = ui->doubleSpinBox_ymin->value();
-//  double y_max = ui->doubleSpinBox_ymax->value();
+  double x_min = ui->doubleSpinBox_xmin->value();
+  double x_max = ui->doubleSpinBox_xmax->value();
+  double y_min = ui->doubleSpinBox_ymin->value();
+  double y_max = ui->doubleSpinBox_ymax->value();
 
-//  if (x_max - x_min > 0 && y_max - y_min > 0) {
-//    graphPlot(x_min, x_max, y_min, y_max);
-//  } else {
-//    ui->statusBar->showMessage("incorrect range");
-//  }
+  if (x_max - x_min > 0 && y_max - y_min > 0) {
+    graphPlot(x_min, x_max, y_min, y_max);
+  } else {
+    ui->statusBar->showMessage("Error: incorrect plot range");
+  }
 }
 
-//void MainWindow::graphPlot(double x_min, double x_max, double y_min,
-//                           double y_max) {
-//  QString input_label_text = ui->label_input->text();
-//  QByteArray tmp_byte_array = input_label_text.toLatin1();
-//  tmp_byte_array.replace(" ", "");
-//  tmp_byte_array.replace("=", "");
-//  char* str_for_calc = tmp_byte_array.data();
+void MainWindow::graphPlot(double x_min, double x_max, double y_min,
+                           double y_max) {
+  std::string expression = ui->label_input->text()
+                               .replace(" ", "")
+                               .replace("=", "")
+                               .replace("mod", "%")
+                               .toStdString();
+  double step_size = (x_max - x_min) / ui->expression_graph->width();
 
-//  int error = OK;
-//  double variable = 0.0;
-//  double result = 0.0;
-//  node_t* q_root = NULL;
-//  error = convert_infix_to_RPN(str_for_calc, &q_root);
-//  remove_struct(&q_root);
+  try {
+    controller_->SetController(expression);
+    e_calc::PlotPoints plot_data =
+        controller_->GetPlotPoints(x_min, x_max, step_size);
+    QVector<double> x{plot_data.x_coord.begin(), plot_data.x_coord.end()};
+    QVector<double> y{plot_data.y_coord.begin(), plot_data.y_coord.end()};
 
-//  QVector<double> x, y;
-//  if (error != OK) {
-//    ERRORS_MESSAGES;
-//    ui->statusBar->showMessage(errors_msg[error]);
-
-//  } else {
-//    ui->statusBar->showMessage("");
-//    variable = x_min;
-//    double step_size = (x_max - x_min) / ui->expression_graph->width();
-//    while (variable <= x_max) {
-//      int error = convert_infix_to_RPN(str_for_calc, &q_root);
-//      if (error == OK) {
-//        error = evaluate_expression(q_root, variable, &result);
-//      }
-//      if (error == OK && result == result && result != 1.0 / 0.0) {
-//        x.push_back(variable);
-//        y.push_back(result);
-//      }
-//      variable += step_size;
-//    }
-
-//    ui->expression_graph->xAxis->setRange(x_min, x_max);
-//    ui->expression_graph->yAxis->setRange(y_min, y_max);
-//    ui->expression_graph->expression_graph();
-//    ui->expression_graph->graph(0)->setData(x, y);
-//    QPen pen;
-//    pen.setColor(QColor(114, 215, 151));
-//    pen.setWidth(2);
-//    ui->expression_graph->graph(0)->setPen(pen);
-//    ui->expression_graph->replot();
-//  }
-//}
+    ui->statusBar->showMessage("");
+    ui->expression_graph->xAxis->setRange(x_min, x_max);
+    ui->expression_graph->yAxis->setRange(y_min, y_max);
+    ui->expression_graph->expression_graph();
+    ui->expression_graph->graph(0)->setData(x, y);
+    QPen pen;
+    pen.setColor(QColor(114, 215, 151));
+    pen.setWidth(2);
+    ui->expression_graph->graph(0)->setPen(pen);
+    ui->expression_graph->replot();
+  } catch (const char* message) {
+    ui->statusBar->showMessage(message);
+  }
+}

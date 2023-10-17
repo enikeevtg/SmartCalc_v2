@@ -4,16 +4,15 @@
 #include <QMainWindow>
 #include <cstring>
 #include <limits>
+#include <string>
 
+#include "../MVCController/controller.h"
+#include "../MVCModel/model.h"
 #include "creditcalcwindow.h"
 #include "depositcalcwindow.h"
 
-//extern "C" {
-//#include "../SmartCalc.h"
-//#include "../data_structures.h"
-//}
-
 QT_BEGIN_NAMESPACE
+
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +23,7 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow(QWidget* parent = nullptr);
+  MainWindow(e_calc::Controller* controller);
   ~MainWindow();
 
  private slots:
@@ -49,13 +49,14 @@ class MainWindow : public QMainWindow {
 
   void on_pushButton_calc_clicked();
   void on_pushButton_print_graph_clicked();
-//  void graphPlot(double x_min, double x_max, double y_min, double y_max);
+  void graphPlot(double x_min, double x_max, double y_min, double y_max);
 
   void on_action_credit_calculator_triggered();
   void on_action_deposit_calculator_triggered();
 
  private:
   Ui::MainWindow* ui;
+  e_calc::Controller* controller_;
   CreditCalcWindow* window_credit_calc;
   DepositCalcWindow* window_deposit_calc;
 
