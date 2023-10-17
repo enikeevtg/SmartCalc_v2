@@ -22,6 +22,8 @@ class ExpressionParser {
  private:
   enum Address { kStack, kQueue };
 
+  void CleanStack();
+
   void TokenProcessing();
   void ValueTokenProcessing();
   void VariableTokenProcessing();

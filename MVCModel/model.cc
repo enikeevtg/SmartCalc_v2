@@ -16,13 +16,13 @@ PUBLIC METHODS
 void Model::SetModel(const std::string& infix_expression, const double& var) {
   str_ = infix_expression;
   var_ = var;
+  CleanQueue();
+  parser_.SetParser(infix_expression);
   points_.x_coord.clear();
   points_.y_coord.clear();
-  parser_.SetParser(infix_expression);
 }
 
 double Model::GetResult() {
-  CleanQueue();
   parser_.ConvertInfixToPostfix();
   return solver_.GetResult(var_);
 }

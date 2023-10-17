@@ -22,6 +22,7 @@ void ExpressionParser::SetParser(const std::string& infix_expression) {
   str_ = infix_expression;
   pos_ = 0;
   last_address_ = kStack;
+  CleanStack();
 }
 
 void ExpressionParser::ConvertInfixToPostfix() {
@@ -60,6 +61,11 @@ void ExpressionParser::ConvertInfixToPostfix() {
 /*
 PRIVATE METHODS
 */
+
+void ExpressionParser::CleanStack() {
+  std::stack<Token> empty_stack;
+  stack_.swap(empty_stack);
+}
 
 void ExpressionParser::TokenProcessing() {
   std::string numbers_chars = "1234567890.";
