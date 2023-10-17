@@ -1,4 +1,4 @@
-#include "model.h"
+#include "smartcalc_model.h"
 
 namespace e_calc {
 

@@ -1,13 +1,13 @@
-#ifndef SMARTCALC_V2_01_UI_MAINWINDOW_H_
-#define SMARTCALC_V2_01_UI_MAINWINDOW_H_
+#ifndef SMARTCALC_V2_MVCVIEW_MAINWINDOW_H_
+#define SMARTCALC_V2_MVCVIEW_MAINWINDOW_H_
 
 #include <QMainWindow>
 #include <cstring>
 #include <limits>
 #include <string>
 
-#include "../MVCController/controller.h"
-#include "../MVCModel/model.h"
+#include "../MVCController/smartcalc_controller.h"
+#include "../MVCModel/smartcalc_model.h"
 #include "creditcalcwindow.h"
 #include "depositcalcwindow.h"
 
@@ -77,4 +77,4 @@ class MainWindow : public QMainWindow {
   bool is_u_minus_input;
   int brackets_counter;
 };
-#endif  // SMARTCALC_V2_01_UI_MAINWINDOW_H_
+#endif  // SMARTCALC_V2_MVCVIEW_MAINWINDOW_H_

@@ -1,5 +1,5 @@
-#ifndef SMARTCALC_V2_01_UI_DEPOSITCALCWINDOW_H_
-#define SMARTCALC_V2_01_UI_DEPOSITCALCWINDOW_H_
+#ifndef SMARTCALC_V2_MVCVIEW_DEPOSITCALCWINDOW_H_
+#define SMARTCALC_V2_MVCVIEW_DEPOSITCALCWINDOW_H_
 
 #include <QMainWindow>
 #include <QTableWidget>
@@ -34,4 +34,4 @@ class DepositCalcWindow : public QMainWindow {
   Ui::DepositCalcWindow* ui;
 };
 
-#endif  // SMARTCALC_V2_01_UI_DEPOSITCALCWINDOW_H_
+#endif  // SMARTCALC_V2_MVCVIEW_DEPOSITCALCWINDOW_H_

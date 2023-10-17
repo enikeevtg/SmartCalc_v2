@@ -6,8 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../MVCModel/model.h"
-// #include "../MVCModel/token.h"
+#include "../MVCModel/smartcalc_model.h"
 
 namespace e_calc {
 

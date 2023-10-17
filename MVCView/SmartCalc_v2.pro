@@ -12,7 +12,7 @@ SOURCES += \
     ../MVCModel/credit_calculator.cc \
     ../MVCModel/expression_parser.cc \
     ../MVCModel/expression_solver.cc \
-    ../MVCModel/model.cc \
+    ../MVCModel/smartcalc_model.cc \
     creditcalcwindow.cc \
     depositcalcwindow.cc \
     main.cc \
@@ -20,11 +20,11 @@ SOURCES += \
     qcustomplot.cc
 
 HEADERS += \
-    ../MVCController/controller.h \
+    ../MVCController/smartcalc_controller.h \
     ../MVCModel/credit_calculator.h \
     ../MVCModel/expression_parser.h \
     ../MVCModel/expression_solver.h \
-    ../MVCModel/model.h \
+    ../MVCModel/smartcalc_model.h \
     ../MVCModel/token.h \
     creditcalcwindow.h \
     depositcalcwindow.h \

@@ -23,8 +23,8 @@
 **          Version: 2.1.1                                                **
 ****************************************************************************/
 
-#ifndef SMARTCALC_05_VISUAL_INTERFACE_QCUSTOMPLOT_H_
-#define SMARTCALC_05_VISUAL_INTERFACE_QCUSTOMPLOT_H_
+#ifndef SMARTCALC_V2_MVCVIEW_QCUSTOMPLOT_H_
+#define SMARTCALC_V2_MVCVIEW_QCUSTOMPLOT_H_
 
 #include <QtCore/qglobal.h>
 
@@ -8793,4 +8793,4 @@ class QCP_LIB_DECL QCPPolarGraph : public QCPLayerable {
 
 /* end of 'src/polar/polargraph.h' */
 
-#endif  // SMARTCALC_05_VISUAL_INTERFACE_QCUSTOMPLOT_H_
+#endif  // SMARTCALC_V2_MVCVIEW_QCUSTOMPLOT_H_

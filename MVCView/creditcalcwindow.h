@@ -1,9 +1,9 @@
-#ifndef SMARTCALC_V2_01_UI_CREDITCALCWINDOW_H_
-#define SMARTCALC_V2_01_UI_CREDITCALCWINDOW_H_
+#ifndef SMARTCALC_V2_MVCVIEW_CREDITCALCWINDOW_H_
+#define SMARTCALC_V2_MVCVIEW_CREDITCALCWINDOW_H_
 
 #include <QMainWindow>
 
-#include "../MVCController/controller.h"
+#include "../MVCController/smartcalc_controller.h"
 
 namespace Ui {
 class CreditCalcWindow;
@@ -27,4 +27,4 @@ class CreditCalcWindow : public QMainWindow {
   e_calc::Controller* controller_;
 };
 
-#endif  // SMARTCALC_V2_01_UI_CREDITCALCWINDOW_H_
+#endif  // SMARTCALC_V2_MVCVIEW_CREDITCALCWINDOW_H_
