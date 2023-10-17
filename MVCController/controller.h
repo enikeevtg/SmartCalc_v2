@@ -6,24 +6,34 @@
 #include <string>
 #include <vector>
 
-#include "MVCModel/expression_parser.h"
-#include "MVCModel/expression_solver.h"
-#include "MVCModel/token.h"
+#include "../MVCModel/model.h"
+#include "../MVCModel/token.h"
 
 namespace e_calc {
 
 class Controller {
  public:
-  Controller();
-  Controller(std::string expression);
-  ~Controller();
+  Controller() {}
+  Controller(Model* model) : model_(model) {}
+  ~Controller() {}
 
-  double GetResult(const double& var);
+  void SetController(const std::string& infix_expression) {
+    model_->SetModel(infix_expression, 0.0);
+  }
+
+  void SetController(const std::string& infix_expression, const double& var) {
+    model_->SetModel(infix_expression, var);
+  }
+
+  double GetResult() { return model_->GetResult(); }
+
+  PlotPoints GetPlotPoints(const double& x_min, const double& x_max,
+                           const double& x_step) {
+    return model_->GetPlotPoints(x_min, x_max, x_step);
+  }
 
  private:
-  std::queue<Token> reverse_polish_notation_;
-  ExpressionParser parser_;
-  ExpressionSolver solver_;
+  Model* model_;
 };
 
 }  // namespace e_calc
