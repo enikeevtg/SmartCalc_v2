@@ -10,9 +10,10 @@ CONFIG += c++17
 
 SOURCES += \
     ../MVCModel/credit_calculator.cc \
+    ../MVCModel/deposit_calculator.cc \
     ../MVCModel/expression_parser.cc \
     ../MVCModel/expression_solver.cc \
-    ../MVCModel/smartcalc_model.cc \
+    ../MVCModel/model.cc \
     creditcalcwindow.cc \
     depositcalcwindow.cc \
     main.cc \
@@ -20,11 +21,12 @@ SOURCES += \
     qcustomplot.cc
 
 HEADERS += \
-    ../MVCController/smartcalc_controller.h \
+    ../MVCController/controller.h \
     ../MVCModel/credit_calculator.h \
+    ../MVCModel/deposit_calculator.h \
     ../MVCModel/expression_parser.h \
     ../MVCModel/expression_solver.h \
-    ../MVCModel/smartcalc_model.h \
+    ../MVCModel/model.h \
     ../MVCModel/token.h \
     creditcalcwindow.h \
     depositcalcwindow.h \

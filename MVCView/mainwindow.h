@@ -6,8 +6,8 @@
 #include <limits>
 #include <string>
 
-#include "../MVCController/smartcalc_controller.h"
-#include "../MVCModel/smartcalc_model.h"
+#include "../MVCController/controller.h"
+#include "../MVCModel/model.h"
 #include "creditcalcwindow.h"
 #include "depositcalcwindow.h"
 

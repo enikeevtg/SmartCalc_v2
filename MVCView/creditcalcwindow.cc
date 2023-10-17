@@ -56,12 +56,12 @@ void CreditCalcWindow::on_pushButton_calculate_clicked() {
     ui->statusBar->showMessage("Credit rate: minimum value is 0.01");
   } else if (ui->radioButton_annuity->isChecked()) {
     int type = e_calc::kAnnuity;
-    controller_->SetController(type, total_amount, term, rate);
-    payments = controller_->PaymentsCalculation();
+    controller_->SetCreditController(type, total_amount, term, rate);
+    payments = controller_->GetCreditPayments();
   } else if (ui->radioButton_differentiated->isChecked()) {
     int type = e_calc::kDiffer;
-    controller_->SetController(type, total_amount, term, rate);
-    payments = controller_->PaymentsCalculation();
+    controller_->SetCreditController(type, total_amount, term, rate);
+    payments = controller_->GetCreditPayments();
   }
   print_result(&payments);
 }

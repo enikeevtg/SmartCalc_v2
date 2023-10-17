@@ -582,6 +582,12 @@ QPushButton:pressed {
       <height>42</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>.AppleSystemUIFont</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLabel {
 	color: rgb(108, 204, 143);

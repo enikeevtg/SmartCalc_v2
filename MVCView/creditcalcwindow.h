@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "../MVCController/smartcalc_controller.h"
+#include "../MVCController/controller.h"
 
 namespace Ui {
 class CreditCalcWindow;
