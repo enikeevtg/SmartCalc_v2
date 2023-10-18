@@ -33,9 +33,8 @@ class Controller {
   }
 
   // Credit
-  void SetCreditController(int& credit_type, double& total_amount, int& term,
-                     double& rate) {
-    model_->SetCreditTerms(credit_type, total_amount, term, rate);
+  void SetCreditController(int& credit_type, CreditTerms& terms) {
+    model_->SetCreditTerms(credit_type, terms);
   }
 
   CreditPayments& GetCreditPayments() {  // const reference return?

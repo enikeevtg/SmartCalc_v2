@@ -416,6 +416,7 @@ void MainWindow::on_pushButton_calc_clicked() {
   double var = ui->doubleSpinBox_var->value();
 
   try {
+    last_token_type = calculation;
     controller_->SetController(expression, var);
     double result = controller_->GetResult();
 
@@ -423,7 +424,6 @@ void MainWindow::on_pushButton_calc_clicked() {
     QString result_string = QString::number(result, 'g');
     ui->label_input->setText(input_label_text + " =");
     ui->label_output->setText(result_string);
-    last_token_type = calculation;
   } catch (const char* message) {
     ui->statusBar->showMessage(message);
   }

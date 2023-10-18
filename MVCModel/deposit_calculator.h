@@ -33,7 +33,7 @@ class DepositCalculator {
 
  private:
   int type_;
-  DepositTerms* terms_;
+  DepositTerms* terms_;  // or lvalue?
   DepositPayments payments_;
 };
 

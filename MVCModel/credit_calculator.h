@@ -7,25 +7,23 @@ namespace e_calc {
 
 enum CreditType { kAnnuity, kDiffer };
 
+struct CreditTerms {
+  int term{0};
+  double total_amount{0};
+  double rate{0};
+};
+
 struct CreditPayments {
-  double first_month_payment;
-  double last_month_payment;
-  double overpayment;
-  double total_payment;
+  double first_month_payment{0};
+  double last_month_payment{0};
+  double overpayment{0};
+  double total_payment{0};
 
-  CreditPayments() {
-    first_month_payment = 0;
-    last_month_payment = 0;
-    overpayment = 0;
-    total_payment = 0;
-  }
-
-  CreditPayments& operator=(CreditPayments& other) {
+  CreditPayments& operator=(CreditPayments& other) {  // translate to .cc file?
     first_month_payment = other.first_month_payment;
     last_month_payment = other.last_month_payment;
     overpayment = other.overpayment;
     total_payment = other.total_payment;
-
     return *this;
   }
 };
@@ -35,15 +33,13 @@ class CreditCalculator {
   CreditCalculator();
   ~CreditCalculator();
 
-  void SetCreditTerms(int& credit_type, double& total_amount, int& term,
-                      double& rate);
+  // Set and Get or omly Get with parameters?
+  void SetCreditTerms(int& credit_type, CreditTerms& terms);
   CreditPayments& GetCreditPayments();
 
  private:
   int credit_type_;
-  double total_amount_;
-  int term_;
-  double rate_;
+  CreditTerms terms_;  // or pointer?
   CreditPayments payments_;
 };
 

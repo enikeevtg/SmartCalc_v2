@@ -34,48 +34,35 @@ CreditCalcWindow::~CreditCalcWindow() { delete ui; }
 void CreditCalcWindow::on_pushButton_calculate_clicked() {
   ui->statusBar->showMessage("");
 
-  double total_amount = ui->doubleSpinBox_credit_total_amount->value();
+  terms_.total_amount = ui->doubleSpinBox_credit_total_amount->value();
   int scale = 1;
   if (ui->comboBox_term_mode->currentText() == "years") scale = 12;
-  int term = scale * ui->spinBox_credit_term->value();
-  double rate = ui->doubleSpinBox_credit_rate->value();
-
-  e_calc::CreditPayments payments;
-
-  if (total_amount < 0.01) {
-    ui->statusBar->showMessage(
-        "Total credit amount: minimum value is"
-        "0.01");
-  } else if (term < 1) {
-    ui->statusBar->showMessage("Credit term: minimum value is 1");
-  } else if (scale == 1 && term > 600) {
-    ui->statusBar->showMessage("Credit term: maximum value is 600");
-  } else if (scale == 12 && term > 600) {
-    ui->statusBar->showMessage("Credit term: maximum value is 50");
-  } else if (rate < 0.01) {
-    ui->statusBar->showMessage("Credit rate: minimum value is 0.01");
-  } else if (ui->radioButton_annuity->isChecked()) {
-    int type = e_calc::kAnnuity;
-    controller_->SetCreditController(type, total_amount, term, rate);
-    payments = controller_->GetCreditPayments();
-  } else if (ui->radioButton_differentiated->isChecked()) {
-    int type = e_calc::kDiffer;
-    controller_->SetCreditController(type, total_amount, term, rate);
-    payments = controller_->GetCreditPayments();
+  terms_.term = scale * ui->spinBox_credit_term->value();
+  terms_.rate = ui->doubleSpinBox_credit_rate->value();
+  int credit_type = e_calc::kAnnuity;
+  if (ui->radioButton_differentiated->isChecked()) {
+    credit_type = e_calc::kDiffer;
   }
-  print_result(&payments);
+
+  try {
+    controller_->SetCreditController(credit_type, terms_);
+    payments_ = controller_->GetCreditPayments();
+    DisplayPayments();
+  } catch (const char* message) {
+    ui->statusBar->showMessage(message);
+  }
 }
 
-void CreditCalcWindow::print_result(e_calc::CreditPayments* payments) {
+void CreditCalcWindow::DisplayPayments() {
   QString currency = " " + ui->comboBox_currency_mode->currentText();
   QString month_payment =
-      QString::number(payments->first_month_payment, 'f', 2);
+      QString::number(payments_.first_month_payment, 'f', 2);
   if (ui->radioButton_differentiated->isChecked()) {
     month_payment +=
-        "..." + QString::number(payments->last_month_payment, 'f', 2);
+        "..." + QString::number(payments_.last_month_payment, 'f', 2);
   }
-  QString overpayment = QString::number(payments->overpayment, 'f', 2);
-  QString total_payment = QString::number(payments->total_payment, 'f', 2);
+  QString overpayment = QString::number(payments_.overpayment, 'f', 2);
+  QString total_payment = QString::number(payments_.total_payment, 'f', 2);
 
   ui->label_value_monthly_payment->setText(month_payment + currency);
   ui->label_value_credit_overpayment->setText(overpayment + currency);
