@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.0, 2023-10-18T00:10:54. -->
+<!-- Written by QtCreator 7.0.0, 2023-10-20T01:05:58. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -241,9 +241,8 @@
      <value type="QString">DYLD_FRAMEWORK_PATH</value>
      <value type="QString">DYLD_LIBRARY_PATH</value>
     </valuelist>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SmartCalc_v22</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/opt/goinfre/zeftyrst/work_zeftyrst/CPP/2023.10_CPP3_SmartCalc_v2.0/SmartCalc_v2/MVCView/SmartCalc_v2.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/opt/goinfre/zeftyrst/work_zeftyrst/CPP/2023.10_CPP3_SmartCalc_v2.0/SmartCalc_v2/MVCView/SmartCalc_v2.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/opt/goinfre/zeftyrst/SmartCalc_v2/MVCView/SmartCalc_v2.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/opt/goinfre/zeftyrst/SmartCalc_v2/MVCView/SmartCalc_v2.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

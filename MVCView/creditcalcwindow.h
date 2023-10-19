@@ -20,10 +20,12 @@ class CreditCalcWindow : public QMainWindow {
  private slots:
 
   void on_pushButton_calculate_clicked();
-  void print_result(e_calc::CreditPayments* payment);
+  void DisplayPayments();
 
  private:
   Ui::CreditCalcWindow* ui;
+  e_calc::CreditTerms terms_;
+  e_calc::CreditPayments payments_;
   e_calc::Controller* controller_;
 };
 

@@ -79,9 +79,15 @@ MainWindow::~MainWindow() { delete ui; }
 ////////////////////////////////////////////////////////////////////////////////
 // FINANCIAL MODES
 void MainWindow::on_action_credit_calculator_triggered() {
-  window_credit_calc = new CreditCalcWindow(controller_);
+  e_calc::Model* model = new e_calc::Model();
+  e_calc::Controller* credit_controller = new e_calc::Controller(model);
+  window_credit_calc = new CreditCalcWindow(credit_controller);
   window_credit_calc->setFixedSize(640, 549);
   window_credit_calc->show();
+
+//  window_credit_calc = new CreditCalcWindow(controller_);
+//  window_credit_calc->setFixedSize(640, 549);
+//  window_credit_calc->show();
 }
 
 void MainWindow::on_action_deposit_calculator_triggered() {
@@ -416,6 +422,7 @@ void MainWindow::on_pushButton_calc_clicked() {
   double var = ui->doubleSpinBox_var->value();
 
   try {
+    last_token_type = calculation;
     controller_->SetController(expression, var);
     double result = controller_->GetResult();
 
@@ -423,7 +430,6 @@ void MainWindow::on_pushButton_calc_clicked() {
     QString result_string = QString::number(result, 'g');
     ui->label_input->setText(input_label_text + " =");
     ui->label_output->setText(result_string);
-    last_token_type = calculation;
   } catch (const char* message) {
     ui->statusBar->showMessage(message);
   }

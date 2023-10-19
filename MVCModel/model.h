@@ -23,17 +23,15 @@ class Model {
   void SetModel(const std::string& infix_expression, const double& var);
   double GetResult();
   PlotPoints& GetPlotPoints(const double& x_min, const double& x_max,
-                           const double& x_step);  // const reference return?
+                            const double& x_step);  // const reference return?
 
-  //Credit
-  void SetCreditTerms(int& credit_type, double& total_amount, int& term,
-                double& rate);
+  // Credit
+  void SetCreditTerms(int& credit_type, CreditTerms& terms);
   CreditPayments& GetCreditPayments();  // const reference return?
 
-  //Deposit
+  // Deposit
   void SetDepositTerms(int& type, DepositTerms* terms);
   DepositPayments& GetDepositPayments();  // const reference return?
-
 
  private:
   void CleanQueue();
