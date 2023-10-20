@@ -1,4 +1,4 @@
-#include "model.h"
+#include "smart_calculator.h"
 
 namespace e_calc {
 
@@ -53,13 +53,13 @@ PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
   return points_;
 }
 
-void Model::SetCreditTerms(int& credit_type, CreditTerms& terms) {
-  credit_.SetCreditTerms(credit_type, terms);
-}
+// void Model::SetCreditTerms(int& credit_type, CreditTerms& terms) {
+//   credit_.SetCreditTerms(credit_type, terms);
+// }
 
-CreditPayments& Model::GetCreditPayments() {
-  return credit_.GetCreditPayments();
-}
+// CreditPayments& Model::GetCreditPayments() {
+//   return credit_.GetCreditPayments();
+// }
 
 void Model::SetDepositTerms(int& type, DepositTerms* terms) {
   deposit_.SetDepositTerms(type, terms);

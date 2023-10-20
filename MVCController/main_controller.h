@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../MVCModel/model.h"
+#include "../MVCModel/smart_calculator.h"
 
 namespace e_calc {
 
@@ -16,7 +16,7 @@ class Controller {
   Controller(Model* model) : model_(model) {}
   ~Controller() {}
 
-  //SmartCalc
+  // SmartCalc
   void SetController(const std::string& infix_expression) {
     model_->SetModel(infix_expression, 0.0);
   }
@@ -32,14 +32,14 @@ class Controller {
     return model_->GetPlotPoints(x_min, x_max, x_step);
   }
 
-  // Credit
-  void SetCreditController(int& credit_type, CreditTerms& terms) {
-    model_->SetCreditTerms(credit_type, terms);
-  }
+  // // Credit
+  // void SetCreditController(int& credit_type, CreditTerms& terms) {
+  //   model_->SetCreditTerms(credit_type, terms);
+  // }
 
-  CreditPayments& GetCreditPayments() {  // const reference return?
-    return model_->GetCreditPayments();
-  }
+  // CreditPayments& GetCreditPayments() {  // const reference return?
+  //   return model_->GetCreditPayments();
+  // }
 
   // Deposit
   void SetDepositController(int& deposit_type, DepositTerms* terms) {

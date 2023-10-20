@@ -6,9 +6,12 @@
 #include <limits>
 #include <string>
 
-#include "../MVCController/controller.h"
-#include "../MVCModel/model.h"
+#include "../MVCController/main_controller.h"
+#include "../MVCModel/smart_calculator.h"
+#include "../MVCController/credit_controller.h"
+#include "../MVCModel/credit_calculator.h"
 #include "creditcalcwindow.h"
+
 #include "depositcalcwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -23,7 +26,7 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow(QWidget* parent = nullptr);
-  MainWindow(e_calc::Controller* controller);
+  MainWindow(e_calc::Controller* controller, e_calc::CreditController* credit_controller);
   ~MainWindow();
 
  private slots:
@@ -56,23 +59,23 @@ class MainWindow : public QMainWindow {
 
  private:
   enum last_token_type_list {
-    all_clean,
-    num_token,
-    dot_token,
-    var_token,
-    op_token,
-    pow_token,
-    open_bracket_token,
-    close_bracket_token,
-    math_func_token,
-    calculation
+    kAllClean,
+    kNumToken,
+    kDotToken,
+    kVarToken,
+    kOpToken,
+    kPowToken,
+    kOpenBracketToken,
+    kCloseBracketToken,
+    kMathFuncToken,
+    kCalculation
   };
 
   Ui::MainWindow* ui;
   e_calc::Controller* controller_;
+  e_calc::CreditController* credit_controller_;
   CreditCalcWindow* window_credit_calc_;
 
-  e_calc::Model* deposit_model_;
   e_calc::Controller* deposit_controller_;
   DepositCalcWindow* window_deposit_calc_;
 

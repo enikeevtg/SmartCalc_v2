@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QTableWidget>
 
-#include "../MVCController/controller.h"
+#include "../MVCController/main_controller.h"
 
 namespace Ui {
 class DepositCalcWindow;

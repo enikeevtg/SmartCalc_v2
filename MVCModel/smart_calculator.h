@@ -1,11 +1,11 @@
 #ifndef SMARTCALC_V2_MVCMODEL_MODEL_H_
 #define SMARTCALC_V2_MVCMODEL_MODEL_H_
 
-#include "credit_calculator.h"
+// #include "credit_calculator.h"
 #include "deposit_calculator.h"
 #include "expression_parser.h"
 #include "expression_solver.h"
-#include "token.h"
+#include "types.h"
 
 namespace e_calc {
 
@@ -26,8 +26,8 @@ class Model {
                             const double& x_step);  // const reference return?
 
   // Credit
-  void SetCreditTerms(int& credit_type, CreditTerms& terms);
-  CreditPayments& GetCreditPayments();  // const reference return?
+  // void SetCreditTerms(int& credit_type, CreditTerms& terms);
+  // CreditPayments& GetCreditPayments();  // const reference return?
 
   // Deposit
   void SetDepositTerms(int& type, DepositTerms* terms);
@@ -42,7 +42,7 @@ class Model {
   ExpressionParser parser_;
   ExpressionSolver solver_;
   PlotPoints points_;
-  CreditCalculator credit_;
+  // CreditCalculator credit_;
   DepositCalculator deposit_;
 };
 

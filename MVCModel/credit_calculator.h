@@ -2,44 +2,23 @@
 #define SMARTCALC_V2_MVCMODEL_CREDIT_CALCULATOR_H_
 
 #include "cmath"
+#include "types.h"
 
 namespace e_calc {
 
-enum CreditType { kAnnuity, kDiffer };
-
-struct CreditTerms {
-  int term{0};
-  double total_amount{0};
-  double rate{0};
-};
-
-struct CreditPayments {
-  double first_month_payment{0};
-  double last_month_payment{0};
-  double overpayment{0};
-  double total_payment{0};
-
-  CreditPayments& operator=(CreditPayments& other) {  // translate to .cc file?
-    first_month_payment = other.first_month_payment;
-    last_month_payment = other.last_month_payment;
-    overpayment = other.overpayment;
-    total_payment = other.total_payment;
-    return *this;
-  }
-};
-
 class CreditCalculator {
  public:
-  CreditCalculator();
-  ~CreditCalculator();
+  CreditCalculator() = default;
+  ~CreditCalculator() = default;
 
-  // Set and Get or omly Get with parameters?
-  void SetCreditTerms(int& credit_type, CreditTerms& terms);
-  CreditPayments& GetCreditPayments();
+  const CreditPayments& CalculateCreditPayments(int credit_type,
+                                                CreditTerms* terms);
 
  private:
+  void SetCreditTerms(int credit_type, CreditTerms* terms);
+
   int credit_type_;
-  CreditTerms terms_;  // or pointer?
+  CreditTerms terms_;
   CreditPayments payments_;
 };
 

@@ -24,7 +24,7 @@ CreditCalcWindow::CreditCalcWindow(QWidget* parent)
   ui->radioButton_annuity->setChecked(true);
 }
 
-CreditCalcWindow::CreditCalcWindow(e_calc::Controller* controller)
+CreditCalcWindow::CreditCalcWindow(e_calc::CreditController* controller)
     : CreditCalcWindow() {
   controller_ = controller;
 }
@@ -45,8 +45,7 @@ void CreditCalcWindow::on_pushButton_calculate_clicked() {
   }
 
   try {
-    controller_->SetCreditController(credit_type, terms_);
-    payments_ = controller_->GetCreditPayments();
+    payments_ = controller_->CalculateCreditPayments(credit_type, &terms_);
     DisplayPayments();
   } catch (const char* message) {
     ui->statusBar->showMessage(message);

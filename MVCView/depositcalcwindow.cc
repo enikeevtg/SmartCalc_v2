@@ -47,8 +47,9 @@ DepositCalcWindow::DepositCalcWindow(QWidget* parent)
           SLOT(ClickedRemoveRow()));
 }
 
-DepositCalcWindow::DepositCalcWindow(e_calc::Controller *controller) : DepositCalcWindow() {
-    controller_ = controller;
+DepositCalcWindow::DepositCalcWindow(e_calc::Controller* controller)
+    : DepositCalcWindow() {
+  controller_ = controller;
 }
 
 DepositCalcWindow::~DepositCalcWindow() { delete ui; }
@@ -173,8 +174,8 @@ void DepositCalcWindow::GenerateData(e_calc::DepositTerms* terms) {
 
   int withdrawals_number = ui->tableWidget_withdrawals_list->rowCount();
   for (int i = 0; i < withdrawals_number; i++) {
-    month_number = ui->tableWidget_withdrawals_list->item(i,
-    0)->text().toInt(); vector_withdrawals[month_number] +=
+    month_number = ui->tableWidget_withdrawals_list->item(i, 0)->text().toInt();
+    vector_withdrawals[month_number] +=
         ui->tableWidget_withdrawals_list->item(i, 1)->text().toDouble();
   }
 
@@ -184,12 +185,11 @@ void DepositCalcWindow::GenerateData(e_calc::DepositTerms* terms) {
 
 void DepositCalcWindow::PrintPayments(e_calc::DepositPayments* payments) {
   QString currency = " " + ui->comboBox_currency_mode->currentText();
-  QString accrues_interst = QString::number(payments->accrued_interest, 'f',2);
+  QString accrues_interst = QString::number(payments->accrued_interest, 'f', 2);
   QString tax_amount = QString::number(payments->tax_amount, 'f', 2);
   QString total_end = QString::number(payments->total_end, 'f', 2);
 
-  ui->label_value_deposit_accrued_interest->setText(accrues_interst +
-  currency); ui->label_value_deposit_tax_amount->setText(tax_amount +
-  currency); ui->label_value_deposit_end_amount->setText(total_end +
-  currency);
+  ui->label_value_deposit_accrued_interest->setText(accrues_interst + currency);
+  ui->label_value_deposit_tax_amount->setText(tax_amount + currency);
+  ui->label_value_deposit_end_amount->setText(total_end + currency);
 }
