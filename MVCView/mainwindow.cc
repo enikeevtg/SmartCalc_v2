@@ -79,21 +79,31 @@ MainWindow::~MainWindow() { delete ui; }
 ////////////////////////////////////////////////////////////////////////////////
 // FINANCIAL MODES
 void MainWindow::on_action_credit_calculator_triggered() {
-  e_calc::Model* model = new e_calc::Model();
-  e_calc::Controller* credit_controller = new e_calc::Controller(model);
-  window_credit_calc = new CreditCalcWindow(credit_controller);
-  window_credit_calc->setFixedSize(640, 549);
-  window_credit_calc->show();
-
+  // 1
 //  window_credit_calc = new CreditCalcWindow(controller_);
 //  window_credit_calc->setFixedSize(640, 549);
 //  window_credit_calc->show();
+
+  // 2
+  e_calc::Model* model = new e_calc::Model();
+  e_calc::Controller* credit_controller = new e_calc::Controller(model);
+  window_credit_calc_ = new CreditCalcWindow(credit_controller);
+  window_credit_calc_->setFixedSize(640, 549);
+  window_credit_calc_->show();
 }
 
 void MainWindow::on_action_deposit_calculator_triggered() {
-  window_deposit_calc = new DepositCalcWindow(controller_);
-  window_deposit_calc->setFixedSize(640, 910);
-  window_deposit_calc->show();
+  // 1
+//  window_deposit_calc = new DepositCalcWindow(controller_);
+//  window_deposit_calc->setFixedSize(640, 910);
+//  window_deposit_calc->show();
+
+  // 3
+  deposit_model_ = new e_calc::Model();
+  deposit_controller_ = new e_calc::Controller(deposit_model_);
+  window_deposit_calc_ = new DepositCalcWindow(deposit_controller_);
+  window_deposit_calc_->setFixedSize(640, 910);
+  window_deposit_calc_->show();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

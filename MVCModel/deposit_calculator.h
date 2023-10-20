@@ -32,6 +32,7 @@ class DepositCalculator {
   DepositPayments& GetDepositPayments();
 
  private:
+  double CB_key_rate_{0.075};
   int type_;
   DepositTerms* terms_;  // or lvalue?
   DepositPayments payments_;

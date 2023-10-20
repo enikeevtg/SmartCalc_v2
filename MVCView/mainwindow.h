@@ -70,8 +70,12 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow* ui;
   e_calc::Controller* controller_;
-  CreditCalcWindow* window_credit_calc;
-  DepositCalcWindow* window_deposit_calc;
+  CreditCalcWindow* window_credit_calc_;
+
+  e_calc::Model* deposit_model_;
+  e_calc::Controller* deposit_controller_;
+  DepositCalcWindow* window_deposit_calc_;
+
   int last_token_type;
   bool is_dot_input;
   bool is_u_minus_input;

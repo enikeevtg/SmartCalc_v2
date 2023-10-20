@@ -55,9 +55,9 @@ void ExpressionSolver::NumericalCalculation(const TokenType& function_id) {
     throw "Error: acos() invalid argument";
   } else if (function_id == kAsin && fabs(top_value) > 1) {
     throw "Error: asin() invalid argument";
-  } else if (function_id == kLn && top_value <= 0) {
+  } else if (function_id == kLn && top_value < 0) {
     throw "Error: ln() invalid argument";
-  } else if (function_id == kLog && top_value <= 0) {
+  } else if (function_id == kLog && top_value < 0) {
     throw "Error: log() invalid argument";
   } else if (function_id == kSqrt && top_value < 0) {
     throw "Error: sqrt() invalid argument";
@@ -65,7 +65,8 @@ void ExpressionSolver::NumericalCalculation(const TokenType& function_id) {
 
   if (function_id < kOpenBracket) {
     double (*unary_functions[11])(double) = {
-        cos, sin, tan, acos, asin, atan, sqrt, log, log10, UPlus, UMinus};
+        std::cos,  std::sin, std::tan,   std::acos, std::asin, std::atan,
+        std::sqrt, std::log, std::log10, UPlus,     UMinus};
     stack_.top().value = unary_functions[function_id](top_value);
   } else {
     double (*binary_functions[6])(double, double) = {Sum, Sub,  Mult,
