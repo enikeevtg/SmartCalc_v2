@@ -24,7 +24,7 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow(QWidget* parent = nullptr);
-  MainWindow(e_calc::Controller* smart_controller,
+  MainWindow(e_calc::SmartController* smart_controller,
              e_calc::CreditController* credit_controller,
              e_calc::DepositController* deposit_controller);
   ~MainWindow();
@@ -71,7 +71,7 @@ class MainWindow : public QMainWindow {
     kCalculation
   };
 
-  e_calc::Controller* smart_controller_;
+  e_calc::SmartController* smart_controller_;
   Ui::MainWindow* ui;
 
   e_calc::CreditController* credit_controller_;

@@ -6,13 +6,14 @@ namespace e_calc {
 CONSTRUCTORS/DESTRUCTOR
 */
 
-Model::Model() : parser_(&queue_), solver_(&queue_) {}
+SmartCalculator::SmartCalculator() : parser_(&queue_), solver_(&queue_) {}
 
 /*
 PUBLIC METHODS
 */
 
-void Model::SetModel(const std::string& infix_expression, const double& var) {
+void SmartCalculator::SetCalculator(const std::string& infix_expression,
+                                    double var) {
   if (infix_expression.size() > EXPRESSION_MAX_SIZE) {
     throw "Error: too large expression";
   }
@@ -25,13 +26,13 @@ void Model::SetModel(const std::string& infix_expression, const double& var) {
   points_.y_coord.clear();
 }
 
-double Model::GetResult() {
+double SmartCalculator::GetResult() {
   parser_.ConvertInfixToPostfix();
   return solver_.GetResult(var_);
 }
 
-PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
-                                 const double& x_step) {
+const PlotPoints& SmartCalculator::GetPlotPoints(double x_min, double x_max,
+                                                 double x_step) {
   if ((x_min < -1000000) || (x_max > 1000000) || (x_min >= x_max)) {
     throw "Error: incorrect plot range";
   }
@@ -40,7 +41,6 @@ PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
   double x = x_min;
   while (x <= x_max) {
     points_.x_coord.push_back(x);
-
     try {
       points_.y_coord.push_back(solver_.GetResult(x));
     } catch (const char* message) {
@@ -56,7 +56,7 @@ PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
 PRIVATE METHODS
 */
 
-void Model::CleanQueue() {
+void SmartCalculator::CleanQueue() {
   std::queue<Token> empty_queue;
   queue_.swap(empty_queue);
 }

@@ -28,7 +28,7 @@ class ExpressionSolver {
  private:
   using unary_func = double (*)(double);
   using binary_func = double (*)(double, double);
-  
+
   void NumericalCalculation(const TokenType& function_id);
   void TranslateFromQueueToStack();
 

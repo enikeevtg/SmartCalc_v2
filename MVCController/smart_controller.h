@@ -10,29 +10,29 @@
 
 namespace e_calc {
 
-class Controller {
+class SmartController {
  public:
-  Controller() {}
-  Controller(Model* model) : model_(model) {}
-  ~Controller() {}
+  SmartController() {}
+  SmartController(SmartCalculator* model) : model_(model) {}
+  ~SmartController() {}
 
   void SetCalculator(const std::string& infix_expression) {
-    model_->SetModel(infix_expression, 0.0);
+    model_->SetCalculator(infix_expression, 0.0);
   }
 
   void SetCalculator(const std::string& infix_expression, const double& var) {
-    model_->SetModel(infix_expression, var);
+    model_->SetCalculator(infix_expression, var);
   }
 
   double GetResult() { return model_->GetResult(); }
 
-  PlotPoints GetPlotPoints(const double& x_min, const double& x_max,
-                           const double& x_step) {
+  const PlotPoints& GetPlotPoints(const double& x_min, const double& x_max,
+                                  const double& x_step) {
     return model_->GetPlotPoints(x_min, x_max, x_step);
   }
 
  private:
-  Model* model_;
+  SmartCalculator* model_;
 };
 
 }  // namespace e_calc

@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget* parent)
   ui->expression_graph->yAxis->setRange(-11.0, 11.0);
 }
 
-MainWindow::MainWindow(e_calc::Controller* smart_controller,
+MainWindow::MainWindow(e_calc::SmartController* smart_controller,
                        e_calc::CreditController* credit_controller,
                        e_calc::DepositController* deposit_controller)
     : MainWindow() {

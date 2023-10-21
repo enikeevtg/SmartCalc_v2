@@ -9,20 +9,14 @@ namespace e_calc {
 
 #define EXPRESSION_MAX_SIZE 255
 
-struct PlotPoints {
-  std::vector<double> x_coord;
-  std::vector<double> y_coord;
-};
-
-class Model {
+class SmartCalculator {
  public:
-  Model();
-  ~Model() = default;
+  SmartCalculator();
+  ~SmartCalculator() = default;
 
-  void SetModel(const std::string& infix_expression, const double& var);
+  void SetCalculator(const std::string& infix_expression, double var);
   double GetResult();
-  PlotPoints& GetPlotPoints(const double& x_min, const double& x_max,
-                            const double& x_step);
+  const PlotPoints& GetPlotPoints(double x_min, double x_max, double x_step);
 
  private:
   void CleanQueue();

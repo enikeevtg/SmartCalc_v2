@@ -1,6 +1,8 @@
 #ifndef SMARTCALC_V2_MVCMODEL_TYPES_H_
 #define SMARTCALC_V2_MVCMODEL_TYPES_H_
 
+#include <vector>
+
 namespace e_calc {
 
 // Smart calculator types
@@ -32,9 +34,14 @@ enum TokenType {
 enum TokenPriority { kPrior1, kPrior2, kPrior3, kPrior4 };
 
 struct Token {
-  TokenType type;
-  TokenPriority prior;
-  double value;
+  TokenType type{kNumber};
+  TokenPriority prior{kPrior1};
+  double value{0.0};
+};
+
+struct PlotPoints {
+  std::vector<double> x_coord;
+  std::vector<double> y_coord;
 };
 
 // Credit calculator types
@@ -96,6 +103,13 @@ struct DepositPayments {
   double accrued_interest;
   double tax_amount;
   double total_end;
+
+  DepositPayments& operator=(const DepositPayments& other) {
+    accrued_interest = other.accrued_interest;
+    tax_amount = other.tax_amount;
+    total_end = other.total_end;
+    return *this;
+  }
 };
 
 }  // namespace e_calc

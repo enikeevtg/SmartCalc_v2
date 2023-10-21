@@ -37,10 +37,10 @@ class ExpressionParser {
   inline static std::string operators_chars_ = "+-*/^%()";
   inline static std::vector<std::string> math_functions_names_{
       "cos", "sin", "tan", "acos", "asin", "atan", "sqrt", "ln", "log"};
-      
+
   std::string str_;
   size_t pos_{0};
-  Token container_{kNumber, kPrior1, 0.0};
+  Token container_;
   Address last_address_{kStack};
   std::stack<Token> stack_;
   std::queue<Token>* queue_;
