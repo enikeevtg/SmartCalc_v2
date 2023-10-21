@@ -6,11 +6,7 @@ namespace e_calc {
 CONSTRUCTORS/DESTRUCTOR
 */
 
-ExpressionParser::ExpressionParser() {}
-
 ExpressionParser::ExpressionParser(std::queue<Token>* queue) : queue_(queue) {}
-
-ExpressionParser::~ExpressionParser() {}
 
 /*
 PUBLIC METHODS
@@ -24,8 +20,6 @@ void ExpressionParser::SetParser(const std::string& infix_expression) {
 }
 
 void ExpressionParser::ConvertInfixToPostfix() {
-  std::string token_chars{"1234567890.+-*/^%(cstalx"};
-
   while (!(pos_ == str_.size() && stack_.empty() == true)) {
     if (pos_ == str_.size() && last_address_ != kStack) {
       EndOfExpressionProcessing();
@@ -33,26 +27,13 @@ void ExpressionParser::ConvertInfixToPostfix() {
       throw "Error: incorrect last input token";
     } else if (str_.at(pos_) == ')') {
       CloseBracketProcessing();
-    } else if (token_chars.find(str_.at(pos_)) != std::string::npos) {
+    } else if (token_chars_.find(str_.at(pos_)) != std::string::npos) {
       TokenProcessing();
     } else if (str_.at(pos_) == ' ') {
       ++pos_;
     } else {
       throw std::string("Error: undefined token");
     }
-
-    ///////////////////// Debug: ///////////////////////
-    // std::cout << "stack_.top(): ";
-    // if (stack_.empty() == false)
-    //   std::cerr << int(stack_.top().type) << ' ';
-    // std::cout << "queue: ";
-    // if (queue_->empty() == false)
-    //   if (queue_->back().type == kNumber)
-    //     std::cerr << int(queue_->back().value);
-    //   else
-    //     std::cerr << int(queue_->back().type);
-    // std::cerr << std::endl;
-    ///////////////////////////////////////////////////
   }
 }
 
@@ -66,14 +47,11 @@ void ExpressionParser::CleanStack() {
 }
 
 void ExpressionParser::TokenProcessing() {
-  std::string numbers_chars = "1234567890.";
-  std::string operators_chars = "+-*/^%()";
-
-  if (numbers_chars.find(str_.at(pos_)) != std::string::npos) {
+  if (numbers_chars_.find(str_.at(pos_)) != std::string::npos) {
     ValueTokenProcessing();
   } else if (str_.at(pos_) == 'x') {
     VariableTokenProcessing();
-  } else if (operators_chars.find(str_.at(pos_)) != std::string::npos) {
+  } else if (operators_chars_.find(str_.at(pos_)) != std::string::npos) {
     OperatorTokenProcessing();
   } else {
     FunctionTokenProcessing();
@@ -85,7 +63,7 @@ void ExpressionParser::ValueTokenProcessing() {
   container_.value = std::stod(str_.substr(pos_));
   queue_->push(container_);
 
-  pos_ = str_.find_first_not_of("0123456789.", pos_);
+  pos_ = str_.find_first_not_of(numbers_chars_, pos_);
   if (pos_ > str_.size()) pos_ = str_.size();
   last_address_ = kQueue;
 }
@@ -142,19 +120,16 @@ void ExpressionParser::OperatorTokenProcessing() {
 }
 
 void ExpressionParser::FunctionTokenProcessing() {
-  std::vector<std::string> math_functions_names{
-      "cos", "sin", "tan", "acos", "asin", "atan", "sqrt", "ln", "log"};
-
   size_t end_pos = str_.find_first_of("(0123456789x", pos_);
   std::string function_name = str_.substr(pos_, end_pos - pos_);
 
   int function_id = 0;
-  while (function_id < int(math_functions_names.size()) &&
-         function_name != math_functions_names[function_id]) {
+  while (function_id < int(math_functions_names_.size()) &&
+         function_name != math_functions_names_[function_id]) {
     ++function_id;
   }
 
-  if (function_id == int(math_functions_names.size())) {
+  if (function_id == int(math_functions_names_.size())) {
     throw "Error: undefined token";
   }
 

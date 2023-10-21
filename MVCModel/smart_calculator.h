@@ -1,13 +1,13 @@
 #ifndef SMARTCALC_V2_MVCMODEL_MODEL_H_
 #define SMARTCALC_V2_MVCMODEL_MODEL_H_
 
-// #include "credit_calculator.h"
-#include "deposit_calculator.h"
 #include "expression_parser.h"
 #include "expression_solver.h"
 #include "types.h"
 
 namespace e_calc {
+
+#define EXPRESSION_MAX_SIZE 255
 
 struct PlotPoints {
   std::vector<double> x_coord;
@@ -17,21 +17,12 @@ struct PlotPoints {
 class Model {
  public:
   Model();
-  ~Model();
+  ~Model() = default;
 
-  // SmartCalc
   void SetModel(const std::string& infix_expression, const double& var);
   double GetResult();
   PlotPoints& GetPlotPoints(const double& x_min, const double& x_max,
-                            const double& x_step);  // const reference return?
-
-  // Credit
-  // void SetCreditTerms(int& credit_type, CreditTerms& terms);
-  // CreditPayments& GetCreditPayments();  // const reference return?
-
-  // Deposit
-  //  void SetDepositTerms(int& type, DepositTerms* terms);
-  //  DepositPayments& GetDepositPayments();  // const reference return?
+                            const double& x_step);
 
  private:
   void CleanQueue();
@@ -42,8 +33,6 @@ class Model {
   ExpressionParser parser_;
   ExpressionSolver solver_;
   PlotPoints points_;
-  // CreditCalculator credit_;
-  DepositCalculator deposit_;
 };
 
 }  // namespace e_calc

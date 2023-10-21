@@ -17,7 +17,6 @@ const DepositPayments& DepositCalculator::CalculateDepositPayments(
       terms_.total_begin +=
           terms_.replenishments[j] - terms_.withdrawals[j + 1];
     }
-    // last_earning = terms_.total_begin * terms_.deposit_rate / 100.0 *
     last_earning = terms_.total_begin * terms_.deposit_rate *
                    double(terms_.periodicity) / 12.0;
     earnings += last_earning;
@@ -27,11 +26,8 @@ const DepositPayments& DepositCalculator::CalculateDepositPayments(
     }
   }
 
-  // payments_.tax_amount = 0.0;
   if (earnings > key_rate_ * 1000000) {
-    payments_.tax_amount =
-        // (earnings - key_rate_ * 1000000) * terms_.tax_rate / 100.0;
-        (earnings - key_rate_ * 1000000) * terms_.tax_rate;
+    payments_.tax_amount = (earnings - key_rate_ * 1000000) * terms_.tax_rate;
   }
   payments_.accrued_interest = earnings;
   payments_.total_end = terms_.total_begin;

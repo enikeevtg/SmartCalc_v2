@@ -7,14 +7,13 @@ CONSTRUCTORS/DESTRUCTOR
 */
 
 Model::Model() : parser_(&queue_), solver_(&queue_) {}
-Model::~Model() {}
 
 /*
 PUBLIC METHODS
 */
 
 void Model::SetModel(const std::string& infix_expression, const double& var) {
-  if (infix_expression.size() > 255) {
+  if (infix_expression.size() > EXPRESSION_MAX_SIZE) {
     throw "Error: too large expression";
   }
 
@@ -52,22 +51,6 @@ PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
 
   return points_;
 }
-
-// void Model::SetCreditTerms(int& credit_type, CreditTerms& terms) {
-//   credit_.SetCreditTerms(credit_type, terms);
-// }
-
-// CreditPayments& Model::GetCreditPayments() {
-//   return credit_.GetCreditPayments();
-// }
-
-// void Model::SetDepositTerms(int& type, DepositTerms* terms) {
-//   deposit_.SetDepositTerms(type, terms);
-// }
-
-// DepositPayments& Model::GetDepositPayments() {
-//   return deposit_.GetDepositPayments();
-// }
 
 /*
 PRIVATE METHODS

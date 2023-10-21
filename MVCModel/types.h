@@ -1,5 +1,5 @@
-#ifndef SMARTCALC_V2_MVCMODEL_TOKEN_H_
-#define SMARTCALC_V2_MVCMODEL_TOKEN_H_
+#ifndef SMARTCALC_V2_MVCMODEL_TYPES_H_
+#define SMARTCALC_V2_MVCMODEL_TYPES_H_
 
 namespace e_calc {
 
@@ -68,7 +68,7 @@ struct CreditPayments {
   }
 };
 
-// Deposit calculetor types
+// Deposit calculator types
 enum { kSimple, kCompound };
 
 struct DepositTerms {
@@ -100,4 +100,4 @@ struct DepositPayments {
 
 }  // namespace e_calc
 
-#endif  // SMARTCALC_V2_MVCMODEL_TOKEN_H_
+#endif  // SMARTCALC_V2_MVCMODEL_TYPES_H_

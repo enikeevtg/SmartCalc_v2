@@ -58,7 +58,7 @@
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -731,7 +731,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -767,7 +767,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -809,7 +809,7 @@ QPushButton:pressed {
     <property name="styleSheet">
      <string notr="true">QLabel {
 	color: rgb(108, 204, 143);
-	border: disable;
+	border: 1px solid rgb(31, 38, 50);
 }</string>
     </property>
     <property name="frameShape">
@@ -886,7 +886,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -922,7 +922,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -961,7 +961,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1000,7 +1000,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1039,7 +1039,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1078,7 +1078,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1117,7 +1117,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1156,7 +1156,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1228,7 +1228,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1264,7 +1264,7 @@ QPushButton:checked {
     <property name="font">
      <font>
       <family>Arial Rounded MT Bold</family>
-      <pointsize>25</pointsize>
+      <pointsize>21</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1497,7 +1497,7 @@ QPushButton:pressed {
     <property name="styleSheet">
      <string notr="true">QLabel {
 	color: rgb(108, 204, 143);
-	border: disable;
+	border: 1px solid rgb(31, 38, 50);
 }</string>
     </property>
     <property name="frameShape">
@@ -1510,7 +1510,7 @@ QPushButton:pressed {
      <number>0</number>
     </property>
     <property name="text">
-     <string>Исәнмесез!</string>
+     <string>Result</string>
     </property>
     <property name="textFormat">
      <enum>Qt::AutoText</enum>

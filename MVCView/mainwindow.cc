@@ -5,7 +5,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), last_token_type_(kNumToken){
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
   setlocale(LC_NUMERIC, "C");
@@ -35,18 +35,13 @@ MainWindow::MainWindow(QWidget* parent)
   ui->expression_graph->setBackground(QColor(58, 70, 90));
   ui->expression_graph->xAxis->setRange(0.0, 21.0);
   ui->expression_graph->yAxis->setRange(-11.0, 11.0);
-
-  // last_token_type_ = kNumToken;
-  is_dot_input_ = false;
-  is_u_minus_input_ = false;
-  brackets_counter_ = 0;
 }
 
-MainWindow::MainWindow(e_calc::Controller* main_controller,
+MainWindow::MainWindow(e_calc::Controller* smart_controller,
                        e_calc::CreditController* credit_controller,
                        e_calc::DepositController* deposit_controller)
     : MainWindow() {
-  controller_ = main_controller;
+  smart_controller_ = smart_controller;
   credit_controller_ = credit_controller;
   deposit_controller_ = deposit_controller;
 }
@@ -62,14 +57,6 @@ void MainWindow::on_action_credit_calculator_triggered() {
 }
 
 void MainWindow::on_action_deposit_calculator_triggered() {
-  // 1
-  //  window_deposit_calc = new DepositCalcWindow(deposit_controller_);
-  //  window_deposit_calc->setFixedSize(640, 910);
-  //  window_deposit_calc->show();
-
-  // 3
-  //  deposit_model_ = new e_calc::Model();
-  //  deposit_controller_ = new e_calc::Controller(deposit_model_);
   window_deposit_calc_ = new DepositCalcWindow(deposit_controller_);
   window_deposit_calc_->setFixedSize(640, 910);
   window_deposit_calc_->show();
@@ -175,7 +162,8 @@ void MainWindow::ClickedButtonDigits() {
               ui->label_input->text().last(2) == "-0" ||
               ui->label_input->text().last(2) == " 0")) {
   } else {
-    if (last_token_type_ == kVarToken || last_token_type_ == kCloseBracketToken) {
+    if (last_token_type_ == kVarToken ||
+        last_token_type_ == kCloseBracketToken) {
       ui->pushButton_op_mult->click();
     }
     ui->label_input->setText(ui->label_input->text() + button->text());
@@ -370,7 +358,7 @@ void MainWindow::ClickedButtonMathFunctions() {
   QPushButton* button = (QPushButton*)sender();
   QString button_text = button->text();
 
-  if (button_text == "√") button_text = "sqrt";  //!!!!!
+  if (button_text == "√") button_text = "sqrt";
 
   if (ui->label_input->text() == "0") {
     ui->label_input->setText(button_text);
@@ -400,10 +388,10 @@ void MainWindow::on_pushButton_calc_clicked() {
   double var = ui->doubleSpinBox_var->value();
 
   try {
-    last_token_type_ = kCalculation;
-    controller_->SetController(expression, var);
-    double result = controller_->GetResult();
+    smart_controller_->SetCalculator(expression, var);
+    double result = smart_controller_->GetResult();
 
+    last_token_type_ = kCalculation;
     ui->statusBar->showMessage("");
     QString result_string = QString::number(result, 'g');
     ui->label_input->setText(input_label_text + " =");
@@ -438,9 +426,9 @@ void MainWindow::GraphPlot(double x_min, double x_max, double y_min,
   double step_size = (x_max - x_min) / ui->expression_graph->width();
 
   try {
-    controller_->SetController(expression);
+    smart_controller_->SetCalculator(expression);
     e_calc::PlotPoints plot_data =
-        controller_->GetPlotPoints(x_min, x_max, step_size);
+        smart_controller_->GetPlotPoints(x_min, x_max, step_size);
     QVector<double> x{plot_data.x_coord.begin(), plot_data.x_coord.end()};
     QVector<double> y{plot_data.y_coord.begin(), plot_data.y_coord.end()};
 

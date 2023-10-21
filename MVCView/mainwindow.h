@@ -6,9 +6,9 @@
 #include <limits>
 #include <string>
 
-#include "../MVCController/main_controller.h"
 #include "../MVCController/credit_controller.h"
 #include "../MVCController/deposit_controller.h"
+#include "../MVCController/smart_controller.h"
 #include "creditcalcwindow.h"
 #include "depositcalcwindow.h"
 
@@ -24,7 +24,7 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow(QWidget* parent = nullptr);
-  MainWindow(e_calc::Controller* main_controller,
+  MainWindow(e_calc::Controller* smart_controller,
              e_calc::CreditController* credit_controller,
              e_calc::DepositController* deposit_controller);
   ~MainWindow();
@@ -71,7 +71,7 @@ class MainWindow : public QMainWindow {
     kCalculation
   };
 
-  e_calc::Controller* controller_;
+  e_calc::Controller* smart_controller_;
   Ui::MainWindow* ui;
 
   e_calc::CreditController* credit_controller_;
@@ -80,9 +80,9 @@ class MainWindow : public QMainWindow {
   e_calc::DepositController* deposit_controller_;
   DepositCalcWindow* window_deposit_calc_;
 
-  int last_token_type_;
-  bool is_dot_input_;
-  bool is_u_minus_input_;
-  int brackets_counter_;
+  int last_token_type_{kNumToken};
+  bool is_dot_input_{false};
+  bool is_u_minus_input_{false};
+  int brackets_counter_{0};
 };
 #endif  // SMARTCALC_V2_MVCVIEW_MAINWINDOW_H_
