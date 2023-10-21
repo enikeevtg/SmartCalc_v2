@@ -22,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     ../MVCController/credit_controller.h \
+    ../MVCController/deposit_controller.h \
     ../MVCController/main_controller.h \
     ../MVCModel/credit_calculator.h \
     ../MVCModel/deposit_calculator.h \

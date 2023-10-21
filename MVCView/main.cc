@@ -9,9 +9,12 @@ int main(int argc, char *argv[]) {
   e_calc::Controller main_controller{&main_model};
   e_calc::CreditCalculator credit_model;
   e_calc::CreditController credit_controller{&credit_model};
-  MainWindow calculator_window{&main_controller, &credit_controller};
+  e_calc::DepositCalculator deposit_model;
+  e_calc::DepositController deposit_controller{&deposit_model};
+  MainWindow main_window{&main_controller, &credit_controller,
+                         &deposit_controller};
 
-  calculator_window.setFixedSize(1000, 656);
-  calculator_window.show();
+  main_window.setFixedSize(1000, 656);
+  main_window.show();
   return app.exec();
 }

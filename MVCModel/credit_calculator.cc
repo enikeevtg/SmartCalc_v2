@@ -7,10 +7,10 @@ PUBLIC METHODS
 */
 
 const CreditPayments& CreditCalculator::CalculateCreditPayments(
-    int credit_type, CreditTerms* terms) {
-  SetCreditTerms(credit_type, terms);
+    int type, CreditTerms* terms) {
+  SetCreditTerms(type, terms);
 
-  if (credit_type_ == kAnnuity) {
+  if (type_ == kAnnuity) {
     payments_.first_month_payment = (terms_.total_amount * terms_.rate) /
                                     (1 - pow(1.0 + terms_.rate, -terms_.term));
     payments_.total_payment = payments_.first_month_payment * terms_.term;
@@ -48,10 +48,10 @@ void CreditCalculator::SetCreditTerms(int credit_type, CreditTerms* terms) {
     throw "Error: credit rate minimum value is 0.01";
   }
 
-  credit_type_ = credit_type;
-  terms_.total_amount = terms->total_amount;
-  terms_.term = terms->term;
-  terms_.rate = terms->rate / (100.0 * 12.0);
+  type_ = credit_type;
+  terms_ = *terms;
+  // cause view gives rates in percentages
+  terms_.rate = terms_.rate / (100.0 * 12.0);
 
   payments_.first_month_payment = 0;
   payments_.last_month_payment = 0;

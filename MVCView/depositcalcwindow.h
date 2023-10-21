@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QTableWidget>
 
-#include "../MVCController/main_controller.h"
+#include "../MVCController/deposit_controller.h"
 
 namespace Ui {
 class DepositCalcWindow;
@@ -15,23 +15,25 @@ class DepositCalcWindow : public QMainWindow {
 
  public:
   explicit DepositCalcWindow(QWidget* parent = nullptr);
-  explicit DepositCalcWindow(e_calc::Controller* controller);
+  explicit DepositCalcWindow(e_calc::DepositController* controller);
   ~DepositCalcWindow();
 
  private slots:
   void on_pushButton_calculate_clicked();
 
-  void GenerateData(e_calc::DepositTerms* terms);
+  void GenerateData();
   void ClickedAddRow();
   void AddNewRow(QTableWidget* table, int month, double amount);
 
   void ClickedRemoveRow();
 
-  void PrintPayments(e_calc::DepositPayments* payments);
+  void PrintPayments();
 
  private:
   Ui::DepositCalcWindow* ui;
-  e_calc::Controller* controller_;
+  e_calc::DepositTerms terms_;
+  e_calc::DepositPayments payments_;
+  e_calc::DepositController* controller_;
 };
 
 #endif  // SMARTCALC_V2_MVCVIEW_DEPOSITCALCWINDOW_H_

@@ -43,7 +43,14 @@ enum CreditType { kAnnuity, kDiffer };
 struct CreditTerms {
   int term{0};
   double total_amount{0};
-  double rate{0};
+  double rate{0};  // in percentages
+
+  CreditTerms& operator=(const CreditTerms& other) {
+    term = other.term;
+    total_amount = other.total_amount;
+    rate = other.rate;
+    return *this;
+  }
 };
 
 struct CreditPayments {
@@ -62,6 +69,34 @@ struct CreditPayments {
 };
 
 // Deposit calculetor types
+enum { kSimple, kCompound };
+
+struct DepositTerms {
+  int term{0};
+  int periodicity{0};
+  double total_begin{0};
+  double deposit_rate{0};  // in percentages
+  double tax_rate{0};      // in percentages
+  double* replenishments{nullptr};
+  double* withdrawals{nullptr};
+
+  DepositTerms& operator=(const DepositTerms& other) {
+    term = other.term;
+    periodicity = other.periodicity;
+    total_begin = other.total_begin;
+    deposit_rate = other.deposit_rate;
+    tax_rate = other.tax_rate;
+    replenishments = other.replenishments;
+    withdrawals = other.withdrawals;
+    return *this;
+  }
+};
+
+struct DepositPayments {
+  double accrued_interest;
+  double tax_amount;
+  double total_end;
+};
 
 }  // namespace e_calc
 

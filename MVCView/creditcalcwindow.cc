@@ -5,23 +5,8 @@
 CreditCalcWindow::CreditCalcWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::CreditCalcWindow) {
   ui->setupUi(this);
-
-  ui->doubleSpinBox_credit_total_amount->setValue(0.0);
-  ui->spinBox_credit_term->setValue(0);
-  ui->doubleSpinBox_credit_rate->setValue(0.0);
-
-  ui->doubleSpinBox_credit_total_amount->setMinimum(0.0);
   ui->doubleSpinBox_credit_total_amount->setMaximum(
       std::numeric_limits<double>::max());
-
-  ui->spinBox_credit_term->setMinimum(0);
-  ui->spinBox_credit_term->setMaximum(600);
-
-  ui->doubleSpinBox_credit_rate->setMinimum(0.0);
-  ui->doubleSpinBox_credit_rate->setMaximum(999.0);
-
-  ui->statusBar->showMessage("");
-  ui->radioButton_annuity->setChecked(true);
 }
 
 CreditCalcWindow::CreditCalcWindow(e_calc::CreditController* controller)

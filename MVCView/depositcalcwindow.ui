@@ -40,6 +40,9 @@
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="maximum">
+     <double>999.000000000000000</double>
+    </property>
    </widget>
    <widget class="QLabel" name="label_deposit_amount_by_the_end">
     <property name="geometry">
@@ -430,6 +433,9 @@
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="maximum">
+     <number>600</number>
+    </property>
    </widget>
    <widget class="QLabel" name="label_tax_amount">
     <property name="geometry">
@@ -631,6 +637,9 @@ QPushButton:pressed {
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QComboBox" name="comboBox_periodicity">
     <property name="geometry">
@@ -745,6 +754,9 @@ QPushButton:pressed {
     <property name="autoScrollMargin">
      <number>16</number>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
     <property name="rowCount">
      <number>0</number>
     </property>
@@ -814,6 +826,9 @@ QPushButton:pressed {
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
     <property name="rowCount">
      <number>0</number>

@@ -6,33 +6,14 @@ DepositCalcWindow::DepositCalcWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::DepositCalcWindow) {
   ui->setupUi(this);
 
-  ui->doubleSpinBox_deposit_total_amount->setMinimum(0.0);
   ui->doubleSpinBox_deposit_total_amount->setMaximum(
       std::numeric_limits<double>::max());
 
-  ui->doubleSpinBox_deposit_rate->setMinimum(0.0);
-  ui->doubleSpinBox_deposit_rate->setMaximum(999.0);
-
-  ui->doubleSpinBox_deposit_tax_rate->setMinimum(0.0);
-  ui->doubleSpinBox_deposit_tax_rate->setMaximum(100.0);
-
-  ui->spinBox_deposit_term->setMinimum(0);
-  ui->spinBox_deposit_term->setMaximum(600);
-
-  ui->tableWidget_replenishments_list->setEditTriggers(
-      QAbstractItemView::NoEditTriggers);
-  ui->tableWidget_withdrawals_list->setEditTriggers(
-      QAbstractItemView::NoEditTriggers);
-
-  ui->spinBox_replenishment_month->setMinimum(0);
   ui->spinBox_replenishment_month->setMaximum(std::numeric_limits<int>::max());
-  ui->doubleSpinBox_replenishments_amount->setMinimum(0.0);
   ui->doubleSpinBox_replenishments_amount->setMaximum(
       std::numeric_limits<double>::max());
 
-  ui->spinBox_withdrawals_month->setMinimum(0);
   ui->spinBox_withdrawals_month->setMaximum(std::numeric_limits<int>::max());
-  ui->doubleSpinBox_withdrawals_amount->setMinimum(0.0);
   ui->doubleSpinBox_withdrawals_amount->setMaximum(
       std::numeric_limits<double>::max());
 
@@ -47,7 +28,7 @@ DepositCalcWindow::DepositCalcWindow(QWidget* parent)
           SLOT(ClickedRemoveRow()));
 }
 
-DepositCalcWindow::DepositCalcWindow(e_calc::Controller* controller)
+DepositCalcWindow::DepositCalcWindow(e_calc::DepositController* controller)
     : DepositCalcWindow() {
   controller_ = controller;
 }
@@ -115,50 +96,43 @@ void DepositCalcWindow::ClickedRemoveRow() {
 ////////////////////////////////////////////////////////////////////////////////
 // CALCULATION
 void DepositCalcWindow::on_pushButton_calculate_clicked() {
-  e_calc::DepositTerms terms = {0, 0, 0.0, 0.0, 0.0, nullptr, nullptr};
-  GenerateData(&terms);
-  e_calc::DepositPayments payments;
-
+  GenerateData();
   try {
+    int deposit_type = e_calc::kSimple;
     if (ui->checkBox_capitalization->isChecked()) {
-      int deposit_type = e_calc::kCompound;
-      controller_->SetDepositController(deposit_type, &terms);
-      payments = controller_->GetDepositPayments();
-    } else {
-      int deposit_type = e_calc::kSimple;
-      controller_->SetDepositController(deposit_type, &terms);
-      payments = controller_->GetDepositPayments();
+      deposit_type = e_calc::kCompound;
     }
-    PrintPayments(&payments);
+    payments_ = controller_->CalculateDepositPayments(deposit_type, &terms_);
+    PrintPayments();
     ui->statusbar->showMessage("");
   } catch (const char* message) {
-    PrintPayments(&payments);
+    PrintPayments();
     ui->statusbar->showMessage(message);
   }
 }
 
-void DepositCalcWindow::GenerateData(e_calc::DepositTerms* terms) {
-  terms->total_begin = ui->doubleSpinBox_deposit_total_amount->value();
+void DepositCalcWindow::GenerateData() {
+  terms_.total_begin = ui->doubleSpinBox_deposit_total_amount->value();
   int scale = 1;
   if (ui->comboBox_term_mode->currentText() == "years") scale = 12;
-  terms->term = scale * ui->spinBox_deposit_term->value();
-  terms->deposit_rate = ui->doubleSpinBox_deposit_rate->value();
-  terms->tax_rate = ui->doubleSpinBox_deposit_tax_rate->value();
-  terms->periodicity = 1;
+  terms_.term = scale * ui->spinBox_deposit_term->value();
+  terms_.deposit_rate = ui->doubleSpinBox_deposit_rate->value();
+  terms_.tax_rate = ui->doubleSpinBox_deposit_tax_rate->value();
+  terms_.periodicity = 1;
   QString periodicity_text = ui->comboBox_periodicity->currentText();
   if (periodicity_text == "once a quarter") {
-    terms->periodicity = 3;
+    terms_.periodicity = 3;
   } else if (periodicity_text == "semiannually") {
-    terms->periodicity = 6;
+    terms_.periodicity = 6;
   } else if (periodicity_text == "once a year") {
-    terms->periodicity = 12;
+    terms_.periodicity = 12;
   } else if (periodicity_text == "at the end of the term") {
-    terms->periodicity = terms->term;
+    terms_.periodicity = terms_.term;
   }
 
-  QVector<double> vector_replenishments(terms->term + 1);
-  QVector<double> vector_withdrawals(terms->term + 1);
-  for (int i = 0; i <= terms->term; i++) {
+  QVector<double> vector_replenishments(terms_.term + 1);
+  QVector<double> vector_withdrawals(terms_.term + 1);
+  for (int i = 0; i <= terms_.term; i++) {
     vector_replenishments[i] = 0;
     vector_withdrawals[i] = 0;
   }
@@ -179,15 +153,15 @@ void DepositCalcWindow::GenerateData(e_calc::DepositTerms* terms) {
         ui->tableWidget_withdrawals_list->item(i, 1)->text().toDouble();
   }
 
-  terms->replenishments = vector_replenishments.data();
-  terms->withdrawals = vector_withdrawals.data();
+  terms_.replenishments = vector_replenishments.data();
+  terms_.withdrawals = vector_withdrawals.data();
 }
 
-void DepositCalcWindow::PrintPayments(e_calc::DepositPayments* payments) {
+void DepositCalcWindow::PrintPayments() {
   QString currency = " " + ui->comboBox_currency_mode->currentText();
-  QString accrues_interst = QString::number(payments->accrued_interest, 'f', 2);
-  QString tax_amount = QString::number(payments->tax_amount, 'f', 2);
-  QString total_end = QString::number(payments->total_end, 'f', 2);
+  QString accrues_interst = QString::number(payments_.accrued_interest, 'f', 2);
+  QString tax_amount = QString::number(payments_.tax_amount, 'f', 2);
+  QString total_end = QString::number(payments_.total_end, 'f', 2);
 
   ui->label_value_deposit_accrued_interest->setText(accrues_interst + currency);
   ui->label_value_deposit_tax_amount->setText(tax_amount + currency);

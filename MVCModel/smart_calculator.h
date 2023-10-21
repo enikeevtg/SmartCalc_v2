@@ -30,8 +30,8 @@ class Model {
   // CreditPayments& GetCreditPayments();  // const reference return?
 
   // Deposit
-  void SetDepositTerms(int& type, DepositTerms* terms);
-  DepositPayments& GetDepositPayments();  // const reference return?
+  //  void SetDepositTerms(int& type, DepositTerms* terms);
+  //  DepositPayments& GetDepositPayments();  // const reference return?
 
  private:
   void CleanQueue();

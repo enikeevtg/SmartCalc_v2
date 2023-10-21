@@ -42,13 +42,13 @@ class Controller {
   // }
 
   // Deposit
-  void SetDepositController(int& deposit_type, DepositTerms* terms) {
-    model_->SetDepositTerms(deposit_type, terms);
-  }
+  //  void SetDepositController(int& deposit_type, DepositTerms* terms) {
+  //    model_->SetDepositTerms(deposit_type, terms);
+  //  }
 
-  DepositPayments& GetDepositPayments() {  // const reference return?
-    return model_->GetDepositPayments();
-  }
+  //  DepositPayments& GetDepositPayments() {  // const reference return?
+  //    return model_->GetDepositPayments();
+  //  }
 
  private:
   Model* model_;

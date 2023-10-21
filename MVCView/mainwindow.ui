@@ -833,7 +833,7 @@ QPushButton:pressed {
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_var">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -857,6 +857,12 @@ QPushButton:pressed {
 	border : 2px solid rgb(41, 50, 66);
 	background : rgb(58, 70, 90);
 }</string>
+    </property>
+    <property name="decimals">
+     <number>7</number>
+    </property>
+    <property name="maximum">
+     <double>99.989999999999995</double>
     </property>
     <property name="singleStep">
      <double>0.100000000000000</double>
@@ -1367,6 +1373,12 @@ QPushButton:pressed {
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_xmax">
     <property name="geometry">
@@ -1388,6 +1400,15 @@ QPushButton:pressed {
 	border : 2px solid rgb(41, 50, 66);
 	background : rgb(58, 70, 90);
 }</string>
+    </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>21.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_ymin">
@@ -1411,6 +1432,15 @@ QPushButton:pressed {
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>-11.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_ymax">
     <property name="geometry">
@@ -1432,6 +1462,15 @@ QPushButton:pressed {
 	border : 2px solid rgb(41, 50, 66);
 	background : rgb(58, 70, 90);
 }</string>
+    </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>11.000000000000000</double>
     </property>
    </widget>
    <widget class="QLabel" name="label_output">
@@ -1624,6 +1663,9 @@ QPushButton:pressed {
 	background-color: rgb(41, 50, 66);
 	border: 1px solid rgb(31, 38, 50);
 }</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

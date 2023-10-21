@@ -7,11 +7,9 @@
 #include <string>
 
 #include "../MVCController/main_controller.h"
-#include "../MVCModel/smart_calculator.h"
 #include "../MVCController/credit_controller.h"
-#include "../MVCModel/credit_calculator.h"
+#include "../MVCController/deposit_controller.h"
 #include "creditcalcwindow.h"
-
 #include "depositcalcwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -26,10 +24,15 @@ class MainWindow : public QMainWindow {
 
  public:
   MainWindow(QWidget* parent = nullptr);
-  MainWindow(e_calc::Controller* controller, e_calc::CreditController* credit_controller);
+  MainWindow(e_calc::Controller* main_controller,
+             e_calc::CreditController* credit_controller,
+             e_calc::DepositController* deposit_controller);
   ~MainWindow();
 
  private slots:
+  void on_action_credit_calculator_triggered();
+  void on_action_deposit_calculator_triggered();
+
   void on_pushButton_AC_clicked();
   void on_pushButton_delete_prev_clicked();
   void LastTokenChecking();
@@ -54,11 +57,8 @@ class MainWindow : public QMainWindow {
   void on_pushButton_print_graph_clicked();
   void GraphPlot(double x_min, double x_max, double y_min, double y_max);
 
-  void on_action_credit_calculator_triggered();
-  void on_action_deposit_calculator_triggered();
-
  private:
-  enum last_token_type_list {
+  enum {
     kAllClean,
     kNumToken,
     kDotToken,
@@ -71,17 +71,18 @@ class MainWindow : public QMainWindow {
     kCalculation
   };
 
-  Ui::MainWindow* ui;
   e_calc::Controller* controller_;
+  Ui::MainWindow* ui;
+
   e_calc::CreditController* credit_controller_;
   CreditCalcWindow* window_credit_calc_;
 
-  e_calc::Controller* deposit_controller_;
+  e_calc::DepositController* deposit_controller_;
   DepositCalcWindow* window_deposit_calc_;
 
-  int last_token_type;
-  bool is_dot_input;
-  bool is_u_minus_input;
-  int brackets_counter;
+  int last_token_type_;
+  bool is_dot_input_;
+  bool is_u_minus_input_;
+  int brackets_counter_;
 };
 #endif  // SMARTCALC_V2_MVCVIEW_MAINWINDOW_H_

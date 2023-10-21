@@ -1,7 +1,8 @@
 #ifndef SMARTCALC_V2_MVCMODEL_CREDIT_CALCULATOR_H_
 #define SMARTCALC_V2_MVCMODEL_CREDIT_CALCULATOR_H_
 
-#include "cmath"
+#include <cmath>
+
 #include "types.h"
 
 namespace e_calc {
@@ -11,13 +12,12 @@ class CreditCalculator {
   CreditCalculator() = default;
   ~CreditCalculator() = default;
 
-  const CreditPayments& CalculateCreditPayments(int credit_type,
-                                                CreditTerms* terms);
+  const CreditPayments& CalculateCreditPayments(int type, CreditTerms* terms);
 
  private:
-  void SetCreditTerms(int credit_type, CreditTerms* terms);
+  void SetCreditTerms(int type, CreditTerms* terms);
 
-  int credit_type_;
+  int type_;
   CreditTerms terms_;
   CreditPayments payments_;
 };

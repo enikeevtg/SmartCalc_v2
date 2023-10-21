@@ -61,13 +61,13 @@ PlotPoints& Model::GetPlotPoints(const double& x_min, const double& x_max,
 //   return credit_.GetCreditPayments();
 // }
 
-void Model::SetDepositTerms(int& type, DepositTerms* terms) {
-  deposit_.SetDepositTerms(type, terms);
-}
+// void Model::SetDepositTerms(int& type, DepositTerms* terms) {
+//   deposit_.SetDepositTerms(type, terms);
+// }
 
-DepositPayments& Model::GetDepositPayments() {
-  return deposit_.GetDepositPayments();
-}
+// DepositPayments& Model::GetDepositPayments() {
+//   return deposit_.GetDepositPayments();
+// }
 
 /*
 PRIVATE METHODS
