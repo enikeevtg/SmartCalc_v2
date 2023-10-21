@@ -1,9 +1,10 @@
-.PHONY: all test gcov gcov_report style gost clean
+.PHONY: all test cover gcov_report style gost clean
 
 # UTILITIES
 CC = gcc
 MK = mkdir -p
 RM = rm -rf
+OPEN_TXT = open -e
 OS := $(shell uname)
 ifeq ($(OS), Darwin)
 	LEAKS = CK_FORK=no leaks --atExit --
@@ -31,14 +32,18 @@ VIEW_DIR = ./MVCView/
 
 SRC = $(wildcard $(MODEL_DIR)*.cc)
 SRC += $(wildcard $(CONTROLLER_DIR)*.cc)
-SRC += $(wildcard $(VIEW_DIR)*.c)
 
 BUILD_DIR = ./build/
 APP = SmartCalc_v2.app
 
 TESTS_DIR = ./tests/
 TESTS_SRC = $(wildcard $(TESTS_DIR)*.cc)
-TEST_EXE = ./tests_runner
+TESTS_OBJ_DIR = ./tests_obj/
+TESTS_OBJ = $(patsubst $(TESTS_DIR)%.cc, $(TESTS_OBJ_DIR)%.o, $(TESTS_SRC))
+TESTS_RUNNER = tests_runner
+TESTS_REPORT = u_tests_report.txt
+
+EXE = a.out $(TESTS_RUNNER)
 
 # BUILD
 all: clean style test gcov_report install dvi dist
@@ -63,20 +68,50 @@ dist:
 app_leaks:
 	$(LEAKS) $(BUILD_DIR)$(APP)/Contents/MacOS/SmartCalc_v2
 
+# TESTS && COVERAGE
+test: clean testobjects
+	$(CC) $(CF) $(STD) $(GTESTF) $(TESTS_OBJ) $(SRC) -o $(TESTS_RUNNER)
+	./$(TESTS_RUNNER) > $(TESTS_REPORT)
+	$(OPEN_TXT) $(TESTS_REPORT)
+	@$(RM) $(TESTS_RUNNER)
+
+cover: gcov_report
+
+gcov_report: clean testobjects
+	$(CC) $(CF) $(STD) $(GTESTF) $(GCOV_FLAGS) $(ASAN) $(TESTS_OBJ) $(SRC) -o $(TESTS_RUNNER)
+	./$(TESTS_RUNNER) > $(TESTS_REPORT)
+	@$(RM) $(TESTS_RUNNER)
+	open $(TESTS_REPORT)
+	@lcov -t "gcov_report" --ignore-errors mismatch -o report.info --no-external -c -d .
+	@genhtml -o report report.info
+	@$(REPORT_OPEN) ./report/index.html
+	@$(RM) *.gcno *.gcda *.info
+
+testobjects: maketestobjdir $(TESTS_OBJ)
+	@echo "\033[0;32m$(CC): TEST OBJECT FILES COMPILATION SUCCESS\033[0m"
+
+maketestobjdir:
+	@$(MK) $(TESTS_OBJ_DIR)
+
+$(TESTS_OBJ_DIR)%.o: $(TESTS_DIR)%.cc
+	$(CC) $(CF) $(STD) $(ASAN) -c $^ -o $@
 
 
 # SERVICE
 style:
-	find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -n
+	@echo "┏==================================┓"
+	@echo "┃  Checking code for Google Style  ┃"
+	@echo "┗==================================┛"
+	@find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -n
 
 gost:
-	find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -i
+	@echo "┏====================================┓"
+	@echo "┃  Formatting code for Google Style  ┃"
+	@echo "┗====================================┛"
+	@find . -name "*.h" -o -name "*.cc" | xargs clang-format --style=google -i
 
 clean:
-	@$(RM) $(OBJ_DIR)
-	@$(RM) $(SRC_DIR)*.o
-	@$(RM) ./report/
-	@$(RM) *.dSYM
-	@$(RM) a.out *.tar
-	@$(RM) *.gcno *.gcda
-	@$(RM) $(TEST_EXE)
+	@$(RM) $(EXE)
+	@$(RM) *.txt
+	@rm -rf *.out *.dSYM ./tests/*.dSYM ./units/*dSYM
+	@rm -rf *.gcno *.gcda ./report gcov_test *.info
