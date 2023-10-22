@@ -8,13 +8,11 @@ namespace e_calc {
 class DepositController {
  public:
   DepositController() = default;
-  DepositController(DepositCalculator* model) : model_(model) {}
+  DepositController(DepositCalculator* model);
   ~DepositController() = default;
 
   const DepositPayments& CalculateDepositPayments(int deposit_type,
-                                                  DepositTerms* terms) {
-    return model_->CalculateDepositPayments(deposit_type, terms);
-  }
+                                                  DepositTerms* terms);
 
  private:
   DepositCalculator* model_;

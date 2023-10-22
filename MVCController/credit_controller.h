@@ -8,14 +8,11 @@ namespace e_calc {
 class CreditController {
  public:
   CreditController() = default;
-  CreditController(CreditCalculator* model) : model_(model) {}
+  CreditController(CreditCalculator* model);
   ~CreditController() = default;
 
   const CreditPayments& CalculateCreditPayments(int credit_type,
-                                                CreditTerms* terms) {
-    return model_->CalculateCreditPayments(credit_type, terms);
-  }
-
+                                                CreditTerms* terms);
  private:
   CreditCalculator* model_;
 };

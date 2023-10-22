@@ -12,24 +12,14 @@ namespace e_calc {
 
 class SmartController {
  public:
-  SmartController() {}
-  SmartController(SmartCalculator* model) : model_(model) {}
-  ~SmartController() {}
+  SmartController() = default;
+  SmartController(SmartCalculator* model);
+  ~SmartController() = default;
 
-  void SetCalculator(const std::string& infix_expression) {
-    model_->SetCalculator(infix_expression, 0.0);
-  }
-
-  void SetCalculator(const std::string& infix_expression, const double& var) {
-    model_->SetCalculator(infix_expression, var);
-  }
-
-  double GetResult() { return model_->GetResult(); }
-
-  const PlotPoints& GetPlotPoints(const double& x_min, const double& x_max,
-                                  const double& x_step) {
-    return model_->GetPlotPoints(x_min, x_max, x_step);
-  }
+  void SetCalculator(const std::string& infix_expression);
+  void SetCalculator(const std::string& infix_expression, const double& var);
+  double GetResult();
+  const PlotPoints& GetPlotPoints(double x_min, double x_max, double x_step);
 
  private:
   SmartCalculator* model_;
