@@ -2,10 +2,12 @@
 #define TESTS_U_TESTS_H_
 
 #include <gtest/gtest.h>
+
 #include <string>
-#include "MVCController/smart_controller.h"
+
 #include "MVCController/credit_controller.h"
 #include "MVCController/deposit_controller.h"
+#include "MVCController/smart_controller.h"
 
 namespace e_calc {
 
