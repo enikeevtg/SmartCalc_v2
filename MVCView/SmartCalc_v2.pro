@@ -9,6 +9,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../MVCController/credit_controller.cc \
+    ../MVCController/deposit_controller.cc \
+    ../MVCController/smart_controller.cc \
     ../MVCModel/credit_calculator.cc \
     ../MVCModel/deposit_calculator.cc \
     ../MVCModel/expression_parser.cc \

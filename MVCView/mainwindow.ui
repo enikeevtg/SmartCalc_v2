@@ -858,6 +858,9 @@ QPushButton:pressed {
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="locale">
+     <locale language="C" country="AnyTerritory"/>
+    </property>
     <property name="decimals">
      <number>7</number>
     </property>
@@ -1373,6 +1376,9 @@ QPushButton:pressed {
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="locale">
+     <locale language="C" country="AnyTerritory"/>
+    </property>
     <property name="minimum">
      <double>-1000000.000000000000000</double>
     </property>
@@ -1400,6 +1406,9 @@ QPushButton:pressed {
 	border : 2px solid rgb(41, 50, 66);
 	background : rgb(58, 70, 90);
 }</string>
+    </property>
+    <property name="locale">
+     <locale language="C" country="AnyTerritory"/>
     </property>
     <property name="minimum">
      <double>-1000000.000000000000000</double>
@@ -1432,6 +1441,9 @@ QPushButton:pressed {
 	background : rgb(58, 70, 90);
 }</string>
     </property>
+    <property name="locale">
+     <locale language="C" country="AnyTerritory"/>
+    </property>
     <property name="minimum">
      <double>-1000000.000000000000000</double>
     </property>
@@ -1462,6 +1474,9 @@ QPushButton:pressed {
 	border : 2px solid rgb(41, 50, 66);
 	background : rgb(58, 70, 90);
 }</string>
+    </property>
+    <property name="locale">
+     <locale language="C" country="AnyTerritory"/>
     </property>
     <property name="minimum">
      <double>-1000000.000000000000000</double>
@@ -1743,7 +1758,7 @@ QPushButton:pressed {
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_operators"/>
-  <buttongroup name="buttonGroup_mfunctions"/>
   <buttongroup name="buttonGroup_numbers"/>
+  <buttongroup name="buttonGroup_mfunctions"/>
  </buttongroups>
 </ui>
