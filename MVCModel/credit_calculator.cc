@@ -38,14 +38,14 @@ PRIVATE METHODS
 */
 
 void CreditCalculator::SetCreditTerms(int credit_type, CreditTerms* terms) {
-  if (terms->total_amount < 0.01) {
-    throw "Error: total credit amount minimum value is 0.01";
-  } else if (terms->term < 1) {
+  if (terms->term < 1) {
     throw "Error: credit term minimum value is 1 month";
   } else if (terms->term > 600) {
     throw "Error: credit term maximum value is 600 months";
-  } else if (terms->rate < 0.01) {
-    throw "Error: credit rate minimum value is 0.01";
+  } else if (terms->total_amount < 0.01) {
+    throw "Error: total credit amount minimum value is 0.01";
+  } else if (terms->rate < 0.0) {
+    throw "Error: credit rate minimum value is 0.0";
   }
 
   type_ = credit_type;

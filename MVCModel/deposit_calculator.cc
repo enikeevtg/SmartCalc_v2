@@ -40,6 +40,18 @@ const DepositPayments& DepositCalculator::CalculateDepositPayments(
 PRIVATE METHODS
 */
 void DepositCalculator::SetDepositTerms(int type, DepositTerms* terms) {
+  if (terms->term < 1) {
+    throw "Error: deposit term minimum value is 1 month";
+  } else if (terms->periodicity < 1) {
+    throw "Error: payment periodicity minimum value is 1";
+  } else if (terms->total_begin < 0.01) {
+    throw "Error: total deposit amount minimum value is 0.01";
+  } else if (terms->deposit_rate < 0.0) {
+    throw "Error: deposit rate minimum value is 0.0";
+  } else if (terms->tax_rate < 0.0) {
+    throw "Error: tax rate minimum value is 0.0";
+  }
+
   deposit_type_ = type;
   terms_ = *terms;
   // cause view gives rates in percentages
