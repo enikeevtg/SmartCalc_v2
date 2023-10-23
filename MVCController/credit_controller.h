@@ -13,6 +13,7 @@ class CreditController {
 
   const CreditPayments& CalculateCreditPayments(int credit_type,
                                                 CreditTerms* terms);
+
  private:
   CreditCalculator* model_;
 };
