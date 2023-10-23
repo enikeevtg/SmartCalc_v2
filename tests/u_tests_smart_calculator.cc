@@ -1,4 +1,5 @@
 #include <cmath>
+
 #include "u_tests.h"
 
 namespace e_calc {
